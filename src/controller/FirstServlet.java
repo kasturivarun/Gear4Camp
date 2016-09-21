@@ -1,3 +1,4 @@
+package controller;
 
 
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import functions.LoginModel;
+
 
 /**
  * Servlet implementation class FristServlet
@@ -23,6 +26,27 @@ public class FirstServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		response.setContentType("text/html");  
+	    PrintWriter out = response.getWriter();  
+	          
+	    String n=request.getParameter("username");  
+	    String p=request.getParameter("userpass");  
+	    LoginModel lm = new LoginModel();
+	          
+	    if(LoginModel.validate(n, p)){
+	    	request.setAttribute("name",n);
+	        RequestDispatcher rd=request.getRequestDispatcher("JSP/welcome.jsp");
+	        rd.forward(request,response);
+	    }  
+	    else{  
+	        out.print("Sorry username or password error");  
+	        RequestDispatcher rd=request.getRequestDispatcher("JSP/login.html");
+	        rd.include(request,response);  
+	    }  
+	          
+	    out.close();  
+	}
     public FirstServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -40,24 +64,7 @@ public class FirstServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");  
-	    PrintWriter out = response.getWriter();  
-	          
-	    String n=request.getParameter("username");  
-	    String p=request.getParameter("userpass");  
-	    LoginModel lm = new LoginModel();
-	          
-	    if(LoginModel.validate(n, p)){  
-	        RequestDispatcher rd=request.getRequestDispatcher("servlet2");  
-	        rd.forward(request,response);  
-	    }  
-	    else{  
-	        out.print("Sorry username or password error");  
-	        RequestDispatcher rd=request.getRequestDispatcher("login.html");  
-	        rd.include(request,response);  
-	    }  
-	          
-	    out.close();  
+		
 	    }  
 	
 
