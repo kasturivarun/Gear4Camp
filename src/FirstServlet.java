@@ -1,5 +1,7 @@
 
 
+
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Servlet implementation class FristServlet
@@ -42,6 +45,7 @@ public class FirstServlet extends HttpServlet {
 	          
 	    String n=request.getParameter("username");  
 	    String p=request.getParameter("userpass");  
+	    LoginModel lm = new LoginModel();
 	          
 	    if(LoginModel.validate(n, p)){  
 	        RequestDispatcher rd=request.getRequestDispatcher("servlet2");  
