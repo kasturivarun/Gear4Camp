@@ -1,43 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Gear4Camp home page for renting outdoor equipment.">
+	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="index.css" rel="stylesheet" type="text/css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<title>Gear4Camp - Login</title>
 </head>
 <body>
 
-<div class="container">
-  <form class="form-horizontal" action="servlet1" method="post">
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Email:</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" name="username" id="email" placeholder="Enter email">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password:</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" name="userpass" id="pwd" placeholder="Enter password">
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox"> Remember me</label>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Gear4Camp</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="create-ad.html">Create Ad</a>
+						<!--First have to check if user has an account and is logged in-->
+						<!--If not, send to login page first-->
+                    </li>
+                </ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Login</button>
-      </div>
-    </div>
-  </form>
-</div>
+        <!-- /.container -->
+    </nav>
 
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-9">							
+                <div class="row">
+					
+					<div class="container">
+
+						<form class="well form-horizontal" action=" " method="post" id="contact_form">
+							<fieldset>
+
+								<!-- Form Name -->
+								<legend>Login</legend>
+
+								<!--Input for Username, which is the user's email address-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">E-mail</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input type="email" class="form-control" name="username" id="username" placeholder="Enter email">
+										</div>
+									</div>
+								</div>
+  
+								<!-- Input for password-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Password</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+										</div>
+									</div>
+								</div>
+	
+								<!--Remember Me checkbox-->
+								<div class="form-group">
+									<label class="col-md-4 control-label"></label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="checkbox">
+											<label><input type="checkbox" id="rememberMeCheckbox"> Remember me</label>
+										</div>
+									</div>
+								</div>
+
+								<!-- Button -->
+								<div class="form-group">
+									<label class="col-md-4 control-label"></label>
+									<div class="col-md-4">
+										<button type="submit" class="btn btn-warning">Login <span class="glyphicon glyphicon-log-in"></span></button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+					<!-- /.container -->
+				</div>
+			</div>
+		</div>
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Gear4Camp 2016</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- /.container -->
 </body>
+
 </html>
