@@ -34,7 +34,7 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="create-ad.html">Create Ad</a>
+                        <a href="#">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>
@@ -53,58 +53,196 @@
 
         <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">Categories</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item">Camping &amp; Hiking</a>
-                    <a href="#" class="list-group-item">Water Sports</a>
-                    <a href="#" class="list-group-item">Snow Sports</a>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-				<!--Maybe implement this in later iterations for a featured equipment
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-				-->
-				
-				<h1>Create an Ad</h1>
-				
+            <div class="col-md-9">							
                 <div class="row">
+					
+					<div class="container">
+
+						<form class="well form-horizontal" action=" " method="post" id="contact_form">
+							<fieldset>
+
+								<!-- Form Name -->
+								<legend>Create an Ad</legend>
+
+								<!-- Text input for required first name-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">First Name</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+											<input name="first_name" placeholder="First Name" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text input for required last name-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Last Name</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+											<input name="last_name" placeholder="Last Name" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text input for required email-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">E-Mail</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+											<input name="email" placeholder="E-Mail Address" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
 
 
+								<!-- Text input for optional phone number-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Phone #</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+											<input name="phone" placeholder="(123) 456-7890" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
 
-                </div>
-            </div>
-        </div>
+								<!-- Select Basic for required State-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">State</label>
+										<div class="col-md-4 selectContainer">
+											<div class="input-group">
+												<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+												<select name="state" class="form-control selectpicker">
+													<option value=" " >Please select your state</option>
+													<option>Alabama</option>
+													<option>Alaska</option>
+													<option >Arizona</option>
+													<option >Arkansas</option>
+													<option >California</option>
+													<option >Colorado</option>
+													<option >Connecticut</option>
+													<option >Delaware</option>
+													<option >District of Columbia</option>
+													<option> Florida</option>
+													<option >Georgia</option>
+													<option >Hawaii</option>
+													<option >Idaho</option>
+													<option >Illinois</option>
+													<option >Indiana</option>
+													<option >Iowa</option>
+													<option> Kansas</option>
+													<option >Kentucky</option>
+													<option >Louisiana</option>
+													<option>Maine</option>
+													<option >Maryland</option>
+													<option> Mass</option>
+													<option >Michigan</option>
+													<option >Minnesota</option>
+													<option>Mississippi</option>
+													<option>Missouri</option>
+													<option>Montana</option>
+													<option>Nebraska</option>
+													<option>Nevada</option>
+													<option>New Hampshire</option>
+													<option>New Jersey</option>
+													<option>New Mexico</option>
+													<option>New York</option>
+													<option>North Carolina</option>
+													<option>North Dakota</option>
+													<option>Ohio</option>
+													<option>Oklahoma</option>
+													<option>Oregon</option>
+													<option>Pennsylvania</option>
+													<option>Rhode Island</option>
+													<option>South Carolina</option>
+													<option>South Dakota</option>
+													<option>Tennessee</option>
+													<option>Texas</option>
+													<option> Uttah</option>
+													<option>Vermont</option>
+													<option>Virginia</option>
+													<option >Washington</option>
+													<option >West Virginia</option>
+													<option>Wisconsin</option>
+													<option >Wyoming</option>
+												</select>
+											</div>
+										</div>
+								</div>
+	  
+								<!-- Text input for required City-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">City</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+											<input name="city" placeholder="city" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text input for optional Zip Code-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Zip Code</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+											<input name="zip" placeholder="Zip Code" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text input for name of equipment for rent-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Title of Ad</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+											<input name="website" placeholder="Title of Ad" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<!-- Text input for required link to picture for now-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Link to Picture</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input name="website" placeholder="Link to Picture" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text area for recuired description of equipment-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Equipment Description</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<textarea class="form-control" name="comment" placeholder="Equipment Description"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<!-- Button -->
+								<div class="form-group">
+									<label class="col-md-4 control-label"></label>
+									<div class="col-md-4">
+										<button type="submit" class="btn btn-warning">Create Ad <span class="glyphicon glyphicon-send"></span></button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+					<!-- /.container -->
+				</div>
+			</div>
+		</div>
     </div>
     <!-- /.container -->
 
