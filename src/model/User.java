@@ -2,15 +2,17 @@ package model;
 
 public class User {
 	private int userId;
-	private int password;
+	private String password;
 	private String email;
 	private String fName;
 	private String mName;
+	private String lName;
 	private String contactNo;
 	private String address;
 	private String city;
 	private String state;
 	private String country;
+	private String zipCode;
 	
 	public int getUserId() {
 		return userId;
@@ -18,11 +20,11 @@ public class User {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	public void setPassword(int password) {
-		this.password = password;
+	public void setPassword(String string) {
+		this.password = string;
 	}
 	public String getEmail() {
 		return email;
@@ -41,6 +43,12 @@ public class User {
 	}
 	public void setmName(String mName) {
 		this.mName = mName;
+	}
+	public String getlName() {
+		return lName;
+	}
+	public void setlName(String lName) {
+		this.lName = lName;
 	}
 	public String getContactNo() {
 		return contactNo;
@@ -71,6 +79,12 @@ public class User {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 }

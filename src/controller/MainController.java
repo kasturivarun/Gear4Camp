@@ -13,20 +13,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.User;
 import functions.LoginModel;
+import functions.UserRegistrationFunction;
 
 
 /**
  * Servlet implementation class FristServlet
  */
-@WebServlet("/FristServlet")
-public class FirstServlet extends HttpServlet {
+@WebServlet("/MainController")
+public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		String jspName=request.getParameter("param");
+		
+		if(jspName.equalsIgnoreCase("Login"))
+		{
+			Login(request,response);
+		}
+		
+		if(jspName.equalsIgnoreCase("Register"))
+		{
+			UserRegister(request,response);
+		}
+		
+		
+	}
+    public MainController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    
+    public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
 		response.setContentType("text/html");  
 	    PrintWriter out = response.getWriter();  
 	          
@@ -36,7 +61,7 @@ public class FirstServlet extends HttpServlet {
 	          
 	    if(LoginModel.validate(n, p)){
 	    	request.setAttribute("name",n);
-	        RequestDispatcher rd=request.getRequestDispatcher("JSP/welcome.jsp");
+	        RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
 	        rd.forward(request,response);
 	    }  
 	    else{  
@@ -46,12 +71,33 @@ public class FirstServlet extends HttpServlet {
 	    }  
 	          
 	    out.close();  
-	}
-    public FirstServlet() {
-        super();
-        // TODO Auto-generated constructor stub
     }
+    
+    public void UserRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	User newUser = new User();
+    	newUser.setfName(request.getParameter("first_name"));
+    	newUser.setlName(request.getParameter("last_name"));
+    	newUser.setEmail(request.getParameter("email"));
+    	newUser.setPassword(request.getParameter("password"));
+    	newUser.setContactNo(request.getParameter("phone_number"));
+    	newUser.setState(request.getParameter("state"));
+    	newUser.setCity(request.getParameter("city"));
+    	newUser.setZipCode(request.getParameter("zip"));
+    	
+    	try
+	 	{
+	 		UserRegistrationFunction ur = new UserRegistrationFunction();
+	 		ur.insertToDb(newUser);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
+	 		rd.include(request,response);
+	 	}
 
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
+    	
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

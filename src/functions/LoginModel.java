@@ -8,12 +8,12 @@ public class LoginModel {
 		boolean status=false;  
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://sql9.freemysqlhosting.net/sql9136014","sql9136014","u2JsXLcsgW");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gear4camp","root","Varun123.");  
 
 			PreparedStatement ps=con.prepareStatement(  
-					"select * from User where email=? and password=?");  
-			ps.setString(1,name);  
-			ps.setString(2,pass);  
+					"select * from users where password=? and email=?");
+			ps.setString(2,name);  
+			ps.setString(1,pass);
 
 			ResultSet rs=ps.executeQuery();  
 			status=rs.next();  
