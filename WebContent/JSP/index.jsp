@@ -50,7 +50,7 @@ ResultSet resultSet = null;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Gear4Camp</a>
+                <a class="navbar-brand" href="http://localhost:8080/Gear4Camp/">Gear4Camp</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -137,12 +137,12 @@ ResultSet resultSet = null;
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
+                            <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
                                 <h4><a href="#"><%=resultSet.getString("title") %></a>
                                 </h4>
-                                <p>Example Short Equipment Description. Real equipment info will be added and displayed dynamically.</p>
+                                <p><%=resultSet.getString("description") %></p>
                             </div>
                             <div class="ratings">
                                 <p class="pull-right">15 Reviews for renter</p>
@@ -165,93 +165,7 @@ ResultSet resultSet = null;
 					}
 					%>
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$64.99/day*</h4>
-                                <h4><a href="#">Equipment 2</a>
-                                </h4>
-                                <p>Example Short Equipment Description.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">12 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$74.99/day</h4>
-                                <h4><a href="#">Equipment 3</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">31 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$84.99/day*</h4>
-                                <h4><a href="#">Equipment 4</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">6 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$94.99/day</h4>
-                                <h4><a href="#">Equipment 5</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">18 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

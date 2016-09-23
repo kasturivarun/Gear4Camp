@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Ad;
 import model.User;
+import functions.CreateAdFunction;
 import functions.LoginModel;
 import functions.UserRegistrationFunction;
 
@@ -40,6 +42,11 @@ public class MainController extends HttpServlet {
 		if(jspName.equalsIgnoreCase("Register"))
 		{
 			UserRegister(request,response);
+		}
+		
+		if(jspName.equalsIgnoreCase("CreateAd"))
+		{
+			CreateNewAd(request,response);
 		}
 		
 		
@@ -97,6 +104,28 @@ public class MainController extends HttpServlet {
 	 		System.out.println("error occured");
 	 	}
     	
+    }
+    
+    public void CreateNewAd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	Ad newAd = new Ad();
+    	newAd.setTitle(request.getParameter("title"));
+    	newAd.setDesc(request.getParameter("description"));
+    	newAd.setRentCost(Integer.parseInt(request.getParameter("cost")));
+    	newAd.setImageLink(request.getParameter("picture_link"));
+    	String email = request.getParameter("email");
+    	
+    	try
+	 	{
+    		CreateAdFunction ur = new CreateAdFunction();
+	 		ur.insertAdToDb(newAd,email);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
+	 		rd.include(request,response);
+	 	}
+
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

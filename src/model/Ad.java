@@ -3,22 +3,25 @@ package model;
 import java.sql.Date;
 
 public class Ad {
-	private int userId;
-	private String adId;
+	private String title;
 	private String desc;
 	private Date sDate;
 	private Date eDate;
-	public int getUserId() {
-		return userId;
+	private String imageLink;
+	private int rentCost;
+	private int availableFlag;
+	
+	public String getTitle() {
+		return title;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getAdId() {
-		return adId;
+	public String getImageLink() {
+		return imageLink;
 	}
-	public void setAdId(String adId) {
-		this.adId = adId;
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
 	}
 	public String getDesc() {
 		return desc;
@@ -32,6 +35,12 @@ public class Ad {
 	public void setsDate(Date sDate) {
 		this.sDate = sDate;
 	}
+	public int getAvailableFlag() {
+		return availableFlag;
+	}
+	public void setAvailableFlag(int availableFlag) {
+		this.availableFlag = availableFlag;
+	}
 	public Date geteDate() {
 		return eDate;
 	}
@@ -44,12 +53,5 @@ public class Ad {
 	public void setRentCost(int rentCost) {
 		this.rentCost = rentCost;
 	}
-	public boolean isAvailableFlag() {
-		return availableFlag;
-	}
-	public void setAvailableFlag(boolean availableFlag) {
-		this.availableFlag = availableFlag;
-	}
-	private int rentCost;
-	private boolean availableFlag;
+	
 }
