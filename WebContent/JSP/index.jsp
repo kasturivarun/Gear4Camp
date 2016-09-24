@@ -145,13 +145,14 @@ ResultSet resultSet = null;
                                 <p><%=resultSet.getString("description") %></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right">15 Reviews for renter</p>
+                                <p class="pull-right"><a href="#"><%=resultSet.getString("user_email") %></a></p>
                                 <p>
+                                Posted By:
+                                    <!-- <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span> -->
                                 </p>
                             </div>
                         </div>

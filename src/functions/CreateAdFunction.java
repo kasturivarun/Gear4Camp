@@ -21,16 +21,16 @@ public class CreateAdFunction {
 			int userId = 0;
 			while(rs.next()){
 				userId = rs.getInt("user_id");
-				
 			}
-			System.out.println(userId);
-			String sql="insert into ads(user_id,title,description,rent_cost,image_link) values(?,?,?,?,?)";
+			
+			String sql="insert into ads(user_id,title,description,rent_cost,image_link,user_email) values(?,?,?,?,?,?)";
 			ps=con.prepareStatement(sql);
 			ps.setInt(1, userId);
 			ps.setString(2, newAd.getTitle());
 			ps.setString(3, newAd.getDesc());
 			ps.setInt(4, newAd.getRentCost());
 			ps.setString(5, newAd.getImageLink());
+			ps.setString(6, email);
 			int query1=ps.executeUpdate();
 		}
 		catch(Exception e){System.out.println(e);}  

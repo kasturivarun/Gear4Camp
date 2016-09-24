@@ -13,7 +13,7 @@ public class UserRegistrationFunction {
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gear4camp","root","Varun123.");  
-			String sql="insert into users(fname,lname,email,password,city,state,country,address,zipcode,phone_number,user_id) values(?,?,?,?,?,?,?,?,?,?,?)";
+			String sql="insert into users(fname,lname,email,password,city,state,country,address,zipcode,phone_number) values(?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps=con.prepareStatement(sql);
 			ps.setString(1,newUser.getfName());
 			ps.setString(2,newUser.getlName());
@@ -25,7 +25,6 @@ public class UserRegistrationFunction {
 			ps.setString(8,newUser.getAddress());
 			ps.setInt(9,Integer.parseInt(newUser.getZipCode()));
 			ps.setString(10,newUser.getContactNo());
-			ps.setInt(11,4);
 			int query1=ps.executeUpdate();
 		}catch(Exception e){System.out.println(e);}  
 	}
