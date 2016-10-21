@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Ad;
 import model.User;
@@ -68,11 +69,13 @@ public class MainController extends HttpServlet {
 	          
 	    if(LoginModel.validate(n, p)){
 	    	request.setAttribute("name",n);
+	    	HttpSession hs=request.getSession(true);
+			hs.setAttribute("uname", n);
 	        RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
 	        rd.forward(request,response);
 	    }  
 	    else{  
-	        RequestDispatcher rd=request.getRequestDispatcher("JSP/login.html");
+	        RequestDispatcher rd=request.getRequestDispatcher("JSP/login.jsp");
 	        rd.include(request,response);  
 	    }  
 	          

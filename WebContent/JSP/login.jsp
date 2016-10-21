@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 
@@ -33,11 +35,7 @@
                     <li>
                         <a href="#">About</a>
                     </li>
-                    <li>
-                        <a href="create-ad.html">Create Ad</a>
-						<!--First have to check if user has an account and is logged in-->
-						<!--If not, send to login page first-->
-                    </li>
+                   	
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -109,7 +107,7 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label"></label>
 									<div class="col-md-4 inputGroupContainer">
-										<p>No account? <a href="register.html">Register now</a></p>
+										<p>No account? <a href="register.jsp">Register now</a></p>
 									</div>
 								</div>
 

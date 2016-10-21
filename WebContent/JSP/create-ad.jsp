@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 
@@ -10,7 +12,7 @@
     <link href="index.css" rel="stylesheet" type="text/css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<title>Gear4Camp - Register</title>
+	<title>Gear4Camp - Create an Ad</title>
 </head>
 <body>
 
@@ -34,7 +36,7 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="create-ad.html">Create Ad</a>
+                        <a href="#">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>
@@ -58,12 +60,11 @@
 					
 					<div class="container">
 
-						<form class="well form-horizontal" action="../servlet1" method="post" id="contact_form">
-						<input type="hidden" name="param" value="Register">
+						<form class="well form-horizontal" action="../servlet1 " method="post" id="contact_form">
 							<fieldset>
-
+								<input type="hidden" name="param" value="CreateAd">
 								<!-- Form Name -->
-								<legend>Register</legend>
+								<legend>Create an Ad</legend>
 
 								<!-- Text input for required first name-->
 								<div class="form-group">
@@ -97,28 +98,7 @@
 										</div>
 									</div>
 								</div>
-								
-								<!-- Input for password-->
-								<div class="form-group">
-									<label class="col-md-4 control-label">Password*</label>
-									<div class="col-md-4 inputGroupContainer">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-											<input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
-										</div>
-									</div>
-								</div>
-								
-								<!-- Input for password-->
-								<div class="form-group">
-									<label class="col-md-4 control-label">Confirm Password*</label>
-									<div class="col-md-4 inputGroupContainer">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-											<input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
-										</div>
-									</div>
-								</div>
+
 
 								<!-- Text input for optional phone number-->
 								<div class="form-group">
@@ -217,6 +197,49 @@
 									</div>
 								</div>
 
+								<!-- Text input for name of equipment for rent-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Title of Ad*</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input name="title" placeholder="Title of Ad" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Rent per day*</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input name="cost" placeholder="Cost per day" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<!-- Text input for required link to picture for now-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Link to Picture*</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+											<input name="picture_link" placeholder="Link to Picture" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+
+								<!-- Text area for recuired description of equipment-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Equipment Description*</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<textarea class="form-control" name="description" placeholder="Equipment Description"></textarea>
+										</div>
+									</div>
+								</div>
+								
 								<div class="form-group">
 									<label class="col-md-4 control-label"></label>
 									<div class="col-md-4 inputGroupContainer">
@@ -228,7 +251,7 @@
 								<div class="form-group">
 									<label class="col-md-4 control-label"></label>
 									<div class="col-md-4">
-										<button type="submit" class="btn btn-warning">Register <span class="glyphicon glyphicon-send"></span></button>
+										<button type="submit" class="btn btn-warning">Create Ad <span class="glyphicon glyphicon-send"></span></button>
 									</div>
 								</div>
 

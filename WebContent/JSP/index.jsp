@@ -15,10 +15,9 @@
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="index.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-	<script src="/jquery.masonry.min.js"></script>
+	<script src="index.js" type="text/javascript"></script>
 	<title>Gear4Camp - Rent Outdoor Equipment</title>
 	<script>
 	$(function(){
@@ -50,6 +49,7 @@ e.printStackTrace();
 Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
+HttpSession hs=request.getSession(true);
 %>
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -70,15 +70,39 @@ ResultSet resultSet = null;
                     <li>
                         <a href="#">About</a>
                     </li>
+                    <%if(hs.getAttribute("uname")!= null) 
+	                {
+	                %>
                     <li>
-                        <a href="JSP/create-ad.html">Create Ad</a>
+                        <a href="JSP/create-ad.jsp">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>
+                    <%
+					}
+					%>
                 </ul>
+                <%if(hs.getAttribute("uname")!= null) 
+                {
+                %>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="JSP/login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="http://localhost:8080/Gear4Camp/"><span class="glyphicon glyphicon-log-in"></span> logout
+					<%hs.removeAttribute("uname");
+						
+					%>
+					
+					</a></li>
 				</ul>
+				<%}
+                else{
+                %>
+                <ul class="nav navbar-nav navbar-right">
+					<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
+				</ul>
+				<%
+				}
+				%>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -134,6 +158,30 @@ ResultSet resultSet = null;
 				-->
 				
 				<h1>Rent Outdoor Equipment</h1>
+				
+				<div class="row">    
+					<div class="col-md-12">
+						<div class="input-group">
+							<div class="input-group-btn search-panel">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									<span id="search_concept">Sort by</span> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#relevance">Relevance</a></li>
+									<li><a href="#highest_cost">Cost: High to Low</a></li>
+									<li><a href="#lowest_cost">Cost: Low to High</a></li>
+									<li><a href="#ratings">Ratings</a></li>
+									<li><a href="#newest">Newest</a></li>
+								</ul>
+							</div>
+							<input type="hidden" name="search_param" value="all" id="search_param">         
+							<input type="text" class="form-control" name="x" placeholder="Search for equipment...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" onclick="" type="button"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+					</div>
+				</div>
 				
                 <div class="row">
 				
