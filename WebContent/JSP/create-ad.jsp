@@ -42,6 +42,7 @@
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="my-account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
 					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
             </div>
@@ -225,6 +226,17 @@
 										<div class="input-group">
 											<span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
 											<input name="picture_link" placeholder="Link to Picture" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+								
+								<!-- Item's category-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Category</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+											<input name="category" placeholder="Item Category" class="form-control" type="text">
 										</div>
 									</div>
 								</div>
