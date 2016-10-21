@@ -17,7 +17,19 @@
     <link href="index.css" rel="stylesheet" type="text/css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="/jquery.masonry.min.js"></script>
 	<title>Gear4Camp - Rent Outdoor Equipment</title>
+	<script>
+	$(function(){
+		 $('.row').masonry({
+		   // options
+		   itemSelector : '.thumbnail, #box, h1',
+		   columnWidth : 240,
+		    isAnimated: true
+		 });
+		});
+	</script>
 </head>
 <body>
 
@@ -129,7 +141,7 @@ ResultSet resultSet = null;
 						try{ 
 						connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 						statement=connection.createStatement();
-						String sql ="SELECT * FROM ads";
+						String sql ="SELECT * FROM ads ORDER BY ad_id DESC";
 
 						resultSet = statement.executeQuery(sql);
 						while(resultSet.next()){

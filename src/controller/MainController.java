@@ -72,7 +72,6 @@ public class MainController extends HttpServlet {
 	        rd.forward(request,response);
 	    }  
 	    else{  
-	        out.print("Sorry username or password error");  
 	        RequestDispatcher rd=request.getRequestDispatcher("JSP/login.html");
 	        rd.include(request,response);  
 	    }  
