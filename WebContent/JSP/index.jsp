@@ -86,11 +86,11 @@ HttpSession hs=request.getSession(true);
                 {
                 %>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="http://localhost:8080/Gear4Camp/"><span class="glyphicon glyphicon-log-in"></span> logout
-					<%hs.removeAttribute("uname");
+					<li><a href="JSP/my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="JSP/logout.jsp"><span class="glyphicon glyphicon-log-in"></span> logout
+					<%-- <%hs.removeAttribute("uname");
 						
-					%>
+					%> --%>
 					
 					</a></li>
 				</ul>
@@ -103,6 +103,7 @@ HttpSession hs=request.getSession(true);
 				<%
 				}
 				%>
+				<% %>
             </div>
             <!-- /.navbar-collapse -->
         </div>

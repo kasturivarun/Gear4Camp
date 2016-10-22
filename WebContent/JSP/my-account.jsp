@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -42,8 +46,7 @@
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="JSP/logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				</ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -57,12 +60,38 @@
         <div class="row well">
 
             <div class="col-md-5">
-				<h1 class="text-center" id="ad_title">Account Details</h1>
+            <%HttpSession hs=request.getSession(true);%>
+				<h1 class="text-center" id="ad_title">Account Details for <%=hs.getAttribute("uname") %></h1>
 				
+				
+				<%String id = (String)hs.getAttribute("uname");
+				String driverName = "com.mysql.jdbc.Driver";
+				String connectionUrl = "jdbc:mysql://localhost:3306/";
+				String dbName = "gear4camp";
+				String userId = "root";
+				String password = "Varun123.";
+
+				try {
+				Class.forName(driverName);
+				} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				}
+
+				Connection connection = null;
+				Statement statement = null;
+				ResultSet resultSet = null;
+				try{ 
+				connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
+				statement=connection.createStatement();
+				String sql ="SELECT * FROM users where email='"+id+"'";
+
+				resultSet = statement.executeQuery(sql);
+				while(resultSet.next()){
+				%>
                 <div class="row">
 
                     <div class="container">
-
+						
 						<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
 						<input type="hidden" name="param" value="Save">
 							<fieldset>
@@ -74,7 +103,7 @@
 											<label class="control-label">First Name*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input name="first_name" value="User's current First Name (pulled from DB)" class="form-control" type="text">
+												<input name="first_name" value=<%=resultSet.getString("fname")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -87,7 +116,7 @@
 											<label class="control-label">Last Name*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input name="last_name" value="User's current Last Name" class="form-control" type="text">
+												<input name="last_name" value=<%=resultSet.getString("lname")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -100,7 +129,7 @@
 											<label class="control-label">E-mail*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-												<input name="email" value="User's current Email Address" class="form-control" type="text">
+												<input name="email" value=<%=resultSet.getString("email")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -113,7 +142,7 @@
 											<label class="control-label">Password*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" class="form-control" name="password" id="password" placeholder="Change password">
+												<input type="password" class="form-control" name="password" value=<%=resultSet.getString("password")%> id="password">
 											</div>
 										</div>
 									</div>
@@ -126,7 +155,7 @@
 											<label class="control-label">Confirm Password*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+												<input type="password" class="form-control" name="confirm_password" value=<%=resultSet.getString("password")%> id="confirm_password" placeholder="Confirm new password">
 											</div>
 										</div>
 									</div>
@@ -139,7 +168,7 @@
 											<label class="control-label">Phone #</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-												<input name="phone_number" value="User's current phone number" class="form-control" type="text">
+												<input name="phone_number" value=<%=resultSet.getString("phone_number")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -153,7 +182,7 @@
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 												<select name="state" class="form-control selectpicker">
-													<option value=" " >User's Current State</option>
+													<option selected="selected"><%=resultSet.getString("state")%></option>
 													<option>Alabama</option>
 													<option>Alaska</option>
 													<option >Arizona</option>
@@ -218,7 +247,7 @@
 											<label class="control-label">City*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input name="city" value="User's current City" class="form-control" type="text">
+												<input name="city" value=<%=resultSet.getString("city")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -231,7 +260,7 @@
 											<label class="control-label">Zip Code</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input name="zip" value="User's current Zip Code" class="form-control" type="text">
+												<input name="zip" value=<%=resultSet.getString("zipcode")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -261,122 +290,58 @@
 					</div>
 					
                 </div>
+                <%
+				}
+
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+                %>
             </div>
 			
 			<div class="col-md-2"></div>
 			
+			
 			<div class="col-md-5">
 				<h1 class="text-center" id="ad_title">Ad Postings</h1>
 				
+				<%
+				try{ 
+				String sql2 ="SELECT * FROM ads where user_email='"+id+"'";
+				resultSet = statement.executeQuery(sql2);
+				while(resultSet.next()){
+				%>
 					<div class="col-sm-12 col-lg-12 col-md-12">
                         <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
+                            <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
-                                <h4 class="pull-right">$24.99/day</h4>
-                                <h4><a href="ad-edit.html">Equipment 1</a>
+                                <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
+                                <h4><a href="#"><%=resultSet.getString("title") %></a>
                                 </h4>
-                                <p>Example Short Equipment Description. Real equipment info will be added and displayed dynamically.</p>
+                                <p><%=resultSet.getString("description") %></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right">15 Reviews</p>
+                                <p class="pull-right"><a href="#"><%=resultSet.getString("user_email") %></a></p>
                                 <p>
+                                Posted By:
+                                    <!-- <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span> -->
                                 </p>
                             </div>
                         </div>
                     </div>
+                    
+                  <%
+				}
+
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+                %>  
 					
-					<div class="col-sm-12 col-lg-12 col-md-12">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$64.99/day*</h4>
-                                <h4><a href="#">Equipment 2</a>
-                                </h4>
-                                <p>Example Short Equipment Description.</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">12 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-					
-					<div class="col-sm-12 col-lg-12 col-md-12">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$74.99/day</h4>
-                                <h4><a href="#">Equipment 3</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">31 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-					
-					<div class="col-sm-12 col-lg-12 col-md-12">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$84.99/day*</h4>
-                                <h4><a href="#">Equipment 4</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">6 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-					
-					<div class="col-sm-12 col-lg-12 col-md-12">
-                        <div class="thumbnail">
-                            <img src="http://placehold.it/320x150" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$94.99/day</h4>
-                                <h4><a href="#">Equipment 5</a>
-                                </h4>
-                                <p>Example Short Equipment Description</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">18 Reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 				
 			</div>
 			
