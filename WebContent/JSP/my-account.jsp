@@ -94,6 +94,7 @@
 						
 						<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
 						<input type="hidden" name="param" value="Save">
+						<input type="hidden" name="param" value="SaveAcc">
 							<fieldset>
 								
 								<!-- Text input for required first name-->

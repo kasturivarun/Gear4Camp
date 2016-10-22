@@ -18,6 +18,7 @@ import model.Ad;
 import model.User;
 import functions.CreateAdFunction;
 import functions.LoginModel;
+import functions.UpdateUserFunction;
 import functions.UserRegistrationFunction;
 
 
@@ -38,18 +39,19 @@ public class MainController extends HttpServlet {
 		if(jspName.equalsIgnoreCase("Login"))
 		{
 			Login(request,response);
-		}
-		
+		}		
 		if(jspName.equalsIgnoreCase("Register"))
 		{
 			UserRegister(request,response);
-		}
-		
+		}		
 		if(jspName.equalsIgnoreCase("CreateAd"))
 		{
 			CreateNewAd(request,response);
 		}
-		
+		if(jspName.equalsIgnoreCase("SaveAcc"))
+		{
+			EditAccountDetails(request,response);
+		}
 		
 	}
     public MainController() {
@@ -122,6 +124,35 @@ public class MainController extends HttpServlet {
 	 		ur.insertAdToDb(newAd,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
 	 		rd.include(request,response);
+	 	}
+
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
+    }
+    public void EditAccountDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	User user = new User();
+    	user.setfName(request.getParameter("first_name"));
+    	user.setlName(request.getParameter("last_name"));
+    	user.setEmail(request.getParameter("email"));
+    	user.setPassword(request.getParameter("password"));
+    	user.setContactNo(request.getParameter("phone_number"));
+    	user.setState(request.getParameter("state"));
+    	user.setCity(request.getParameter("city"));
+    	user.setZipCode(request.getParameter("zip"));
+    	
+    	//get user from session
+    	HttpSession hs=request.getSession(true);
+		String email = (String) hs.getAttribute("uname");
+		
+    	try
+	 	{
+    		UpdateUserFunction uuf = new UpdateUserFunction();
+	 		uuf.updateUserInDb(user,email);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/my-account.jsp");
+	 		//rd.include(request,response);
+	 		rd.forward(request, response);
 	 	}
 
 	 	catch(Exception e1)
