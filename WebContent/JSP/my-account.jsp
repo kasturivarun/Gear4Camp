@@ -40,7 +40,7 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="create-ad.html">Create Ad</a>
+                        <a href="create-ad.jsp">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>

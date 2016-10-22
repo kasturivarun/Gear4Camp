@@ -11,7 +11,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="index.css" rel="stylesheet" type="text/css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<title>Gear4Camp - Create an Ad</title>
 </head>
 <body>
@@ -42,8 +42,8 @@
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
             </div>
             <!-- /.navbar-collapse -->

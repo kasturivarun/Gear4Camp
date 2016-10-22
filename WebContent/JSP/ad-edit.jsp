@@ -36,14 +36,14 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="create-ad.html">Create Ad</a>
+                        <a href="create-ad.jsp">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
             </div>
             <!-- /.navbar-collapse -->

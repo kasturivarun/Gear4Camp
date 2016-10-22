@@ -14,10 +14,10 @@
     <meta name="description" content="Gear4Camp home page for renting outdoor equipment.">
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="index.css" rel="stylesheet" type="text/css">
+    <link href="JSP/index.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="index.js" type="text/javascript"></script>
+	<script src="/WebContent/JSP/index.js" type="text/javascript"></script>
 	<title>Gear4Camp - Rent Outdoor Equipment</title>
 	<script>
 	$(function(){
@@ -98,7 +98,8 @@ HttpSession hs=request.getSession(true);
                 else{
                 %>
                 <ul class="nav navbar-nav navbar-right">
-					<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
+                	<li><a href="JSP/my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 				<%
 				}
@@ -125,42 +126,10 @@ HttpSession hs=request.getSession(true);
             </div>
 
             <div class="col-md-9">
-
-				<!--Maybe implement this in later iterations for a featured equipment
-                <div class="row carousel-holder">
-
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-				-->
 				
 				<h1>Rent Outdoor Equipment</h1>
 				
-				<div class="row">    
+				<div class="row" id="testinglol">    
 					<div class="col-md-12">
 						<div class="input-group">
 							<div class="input-group-btn search-panel">
@@ -196,12 +165,12 @@ HttpSession hs=request.getSession(true);
 						while(resultSet.next()){
 					%>
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="col-sm-4 col-lg-4 col-md-4 panel">
                         <div class="thumbnail">
                             <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
-                                <h4><a href="#"><%=resultSet.getString("title") %></a>
+                                <h4><a href="JSP/ad-view.jsp"><%=resultSet.getString("title") %></a>
                                 </h4>
                                 <p><%=resultSet.getString("description") %></p>
                             </div>
