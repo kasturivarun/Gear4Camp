@@ -23,7 +23,7 @@ public class UpdateUserFunction {
 			ps.setString(6,newUser.getState());
 			ps.setString(7,"USA");
 			ps.setString(8,newUser.getAddress());
-			ps.setInt(9,Integer.parseInt(newUser.getZipCode()));
+			ps.setString(9,newUser.getZipCode());//zip code is varchar in DB table
 			ps.setString(10,newUser.getContactNo());
 			ps.setString(11,email);
 			int query1=ps.executeUpdate();
