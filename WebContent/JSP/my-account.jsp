@@ -18,6 +18,23 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<title>Gear4Camp - My Account</title>
 </head>
+ <script type="text/javascript">
+function enableSave(){
+document.getElementById("btnEdit").style.display = "none";
+document.getElementById("btnSave").style.display = "block";
+document.getElementById("btnCancel").style.display = "block";
+
+document.getElementById("first_name").disabled = '';
+document.getElementById("last_name").disabled = '';
+document.getElementById("password").disabled = '';
+document.getElementById("confirm_password").disabled = '';
+document.getElementById("phone_number").disabled = '';
+document.getElementById("state").disabled = '';
+document.getElementById("city").disabled = '';
+document.getElementById("zip").disabled = '';
+}
+</script>
+
 <body>
 
     <!-- Navigation -->
@@ -93,7 +110,7 @@
                     <div class="container">
 						
 						<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
-						<input type="hidden" name="param" value="Save">
+						
 						<input type="hidden" name="param" value="SaveAcc">
 							<fieldset>
 								
@@ -104,7 +121,7 @@
 											<label class="control-label">First Name*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input name="first_name" value=<%=resultSet.getString("fname")%> class="form-control" type="text">
+												<input id="first_name" name="first_name" disabled="disabled" value=<%=resultSet.getString("fname")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -117,7 +134,7 @@
 											<label class="control-label">Last Name*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input name="last_name" value=<%=resultSet.getString("lname")%> class="form-control" type="text">
+												<input id="last_name" name="last_name" disabled="disabled" value=<%=resultSet.getString("lname")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -130,7 +147,7 @@
 											<label class="control-label">E-mail*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-												<input name="email" value=<%=resultSet.getString("email")%> class="form-control" type="text">
+												<input id="email" name="email" readonly value=<%=resultSet.getString("email")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -143,7 +160,7 @@
 											<label class="control-label">Password*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" class="form-control" name="password" value=<%=resultSet.getString("password")%> id="password">
+												<input type="password" disabled="disabled" class="form-control" name="password" value=<%=resultSet.getString("password")%> id="password">
 											</div>
 										</div>
 									</div>
@@ -156,7 +173,7 @@
 											<label class="control-label">Confirm Password*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" class="form-control" name="confirm_password" value=<%=resultSet.getString("password")%> id="confirm_password" placeholder="Confirm new password">
+												<input type="password" disabled="disabled" class="form-control" name="confirm_password" value=<%=resultSet.getString("password")%> id="confirm_password" placeholder="Confirm new password">
 											</div>
 										</div>
 									</div>
@@ -169,7 +186,7 @@
 											<label class="control-label">Phone #</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-												<input name="phone_number" value=<%=resultSet.getString("phone_number")%> class="form-control" type="text">
+												<input id="phone_number" name="phone_number" disabled="disabled" value=<%=resultSet.getString("phone_number")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -182,7 +199,7 @@
 											<label class="control-label">State*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-												<select name="state" class="form-control selectpicker">
+												<select id="state" name="state" disabled="disabled" class="form-control selectpicker">
 													<option selected="selected"><%=resultSet.getString("state")%></option>
 													<option>Alabama</option>
 													<option>Alaska</option>
@@ -248,7 +265,7 @@
 											<label class="control-label">City*</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input name="city" value=<%=resultSet.getString("city")%> class="form-control" type="text">
+												<input id="city" name="city" disabled="disabled" value=<%=resultSet.getString("city")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -261,7 +278,7 @@
 											<label class="control-label">Zip Code</label>
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input name="zip" value=<%=resultSet.getString("zipcode")%> class="form-control" type="text">
+												<input id="zip" name="zip" disabled="disabled" value=<%=resultSet.getString("zipcode")%> class="form-control" type="text">
 											</div>
 										</div>
 									</div>
@@ -279,10 +296,17 @@
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="col-md-5 control-label"></label>
-											<div class="input-group">
-												<button type="submit" class="btn btn-warning">Save <span class="glyphicon glyphicon-send"></span></button>
+											<div class="btn-group">
+												<button id="btnEdit"  onclick="enableSave(); return false;" class="btn btn-warning ">Edit <span class="glyphicon glyphicon-send"></span></button>											
+											</div>
+											<div class="btn-group">
+												<button  id="btnSave" type="submit" style="display: none;" class="btn btn-warning ">Save <span class="glyphicon glyphicon-send"></span></button>												
+											</div>
+											<div class="btn-group">
+											<button  id="btnCancel"  style="display: none;" onclick="window.location.reload();" class="btn btn-warning ">Cancel <span class="glyphicon glyphicon-send"></span></button>
 											</div>
 										</div>
+									
 									</div>
 								</div>
 
