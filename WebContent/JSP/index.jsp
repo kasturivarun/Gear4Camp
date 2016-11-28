@@ -4,6 +4,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="DAO.DBConnection"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,10 +15,10 @@
     <meta name="description" content="Gear4Camp home page for renting outdoor equipment.">
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="JSP/index.css" rel="stylesheet" type="text/css">
+    <link href="index.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="/WebContent/JSP/index.js" type="text/javascript"></script>
+	<script src="index.js" type="text/javascript"></script>
 	<title>Gear4Camp - Rent Outdoor Equipment</title>
 	<script>
 	$(function(){
@@ -33,20 +34,10 @@
 <body>
 
 <%
+
+Connection con = DBConnection.getConnection();
+
 String id = request.getParameter("userId");
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://localhost:3306/";
-String dbName = "gear4camp";
-String userId = "root";
-String password = "Varun123.";
-
-try {
-Class.forName(driverName);
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
 Statement statement = null;
 ResultSet resultSet = null;
 HttpSession hs=request.getSession(true);
@@ -98,13 +89,12 @@ HttpSession hs=request.getSession(true);
                 else{
                 %>
                 <ul class="nav navbar-nav navbar-right">
-                	<li><a href="JSP/my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 				<%
 				}
 				%>
-				<% %>
+			
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -126,11 +116,43 @@ HttpSession hs=request.getSession(true);
             </div>
 
             <div class="col-md-9">
+<!--Maybe implement this in later iterations for a featured equipment
+                <div class="row carousel-holder">
+
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+				-->
 				
 				<h1>Rent Outdoor Equipment</h1>
 				
-				<div class="row" id="testinglol">    
+				<div class="row" >    
 					<div class="col-md-12">
+<form action="servlet1" method="post">
 						<div class="input-group">
 							<div class="input-group-btn search-panel">
 								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -144,12 +166,13 @@ HttpSession hs=request.getSession(true);
 									<li><a href="#newest">Newest</a></li>
 								</ul>
 							</div>
-							<input type="hidden" name="search_param" value="all" id="search_param">         
-							<input type="text" class="form-control" name="x" placeholder="Search for equipment...">
+							<input type="hidden" name="param" value="searchAd"/>       
+							<input type="text" class="form-control" id = "searchWord" name="searchWord" placeholder="Search for equipment...">
 							<span class="input-group-btn">
-								<button class="btn btn-default" onclick="" type="button"><span class="glyphicon glyphicon-search"></span></button>
+								<button type="submit" class="btn btn-default" ><span class="glyphicon glyphicon-search"></span></button>
 							</span>
 						</div>
+	</form>
 					</div>
 				</div>
 				
@@ -157,20 +180,25 @@ HttpSession hs=request.getSession(true);
 				
 					<%
 						try{ 
-						connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
-						statement=connection.createStatement();
-						String sql ="SELECT * FROM ads ORDER BY ad_id DESC";
-
+						statement=con.createStatement();
+					
+						/* if(search!=null){
+							sql ="SELECT * FROM ads where title like '%"+search+"%' and is_available=1 ORDER BY ad_id DESC" ;
+						}
+						else{
+							sql ="SELECT * FROM ads where is_available=1 ORDER BY ad_id DESC";
+						} */
+						String sql ="SELECT * FROM ads where is_available=1 ORDER BY ad_id DESC";
 						resultSet = statement.executeQuery(sql);
 						while(resultSet.next()){
 					%>
 
-                    <div class="col-sm-4 col-lg-4 col-md-4 panel">
-                        <div class="thumbnail">
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail" style="height:300px;">
                             <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
-                                <h4><a href="JSP/ad-view.jsp"><%=resultSet.getString("title") %></a>
+                                <h4><a href="JSP/ad-view.jsp?adId=<%=resultSet.getInt("ad_id") %>"><%=resultSet.getString("title") %></a>
                                 </h4>
                                 <p><%=resultSet.getString("description") %></p>
                             </div>

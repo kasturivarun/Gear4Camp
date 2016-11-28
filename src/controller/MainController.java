@@ -1,8 +1,4 @@
 package controller;
-
-
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,8 +14,10 @@ import model.Ad;
 import model.User;
 import functions.CreateAdFunction;
 import functions.LoginModel;
+import functions.UpdateAdFunction;
 import functions.UpdateUserFunction;
 import functions.UserRegistrationFunction;
+import functions.rentProduct;
 
 
 /**
@@ -40,17 +38,33 @@ public class MainController extends HttpServlet {
 		{
 			Login(request,response);
 		}		
-		if(jspName.equalsIgnoreCase("Register"))
+		else if(jspName.equalsIgnoreCase("Register"))
 		{
 			UserRegister(request,response);
 		}		
-		if(jspName.equalsIgnoreCase("CreateAd"))
+		else if(jspName.equalsIgnoreCase("CreateAd"))
 		{
 			CreateNewAd(request,response);
 		}
-		if(jspName.equalsIgnoreCase("SaveAcc"))
+		else if(jspName.equalsIgnoreCase("userUpdate"))
 		{
 			EditAccountDetails(request,response);
+		}
+		else if(jspName.equalsIgnoreCase("editAd"))
+		{
+			adUpdate(request,response);
+		}
+		else if(jspName.equalsIgnoreCase("searchAd"))
+		{
+			String s = request.getParameter("searchWord");
+			request.setAttribute("searchWord",s);
+			RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
+	        rd.forward(request,response);
+		}
+		
+		else if(jspName.equalsIgnoreCase("rentAd"))
+		{
+			rent(request,response);
 		}
 		
 	}
@@ -58,7 +72,6 @@ public class MainController extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
     
     public void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
@@ -99,7 +112,9 @@ public class MainController extends HttpServlet {
 	 	{
 	 		UserRegistrationFunction ur = new UserRegistrationFunction();
 	 		ur.insertToDb(newUser);
-	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
+	 		HttpSession hs=request.getSession(true);
+			hs.setAttribute("uname", newUser.getEmail());
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/registrationConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
 
@@ -116,13 +131,18 @@ public class MainController extends HttpServlet {
     	newAd.setDesc(request.getParameter("description"));
     	newAd.setRentCost(Integer.parseInt(request.getParameter("cost")));
     	newAd.setImageLink(request.getParameter("picture_link"));
-    	String email = request.getParameter("email");
-    	
+    	newAd.setCategory(request.getParameter("category"));
+    	newAd.setName(request.getParameter("name"));
+    	newAd.setCondition(request.getParameter("condition"));
+    	newAd.setPhn_no(request.getParameter("phone_number"));
+    	HttpSession hs=request.getSession(true);
+    	newAd.setEmail((String) hs.getAttribute("uname"));
+    	System.out.println(newAd.getEmail());
     	try
 	 	{
     		CreateAdFunction ur = new CreateAdFunction();
-	 		ur.insertAdToDb(newAd,email);
-	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/index.jsp");
+	 		ur.insertAdToDb(newAd);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/createAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
 
@@ -159,6 +179,49 @@ public class MainController extends HttpServlet {
 	 	{
 	 		System.out.println("error occured");
 	 	}
+    }
+    
+    public void adUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	User newUser = new User();
+    	System.out.println("In adupdate function");
+    	Ad newAd = new Ad();
+    	newAd.setTitle(request.getParameter("ad_title"));
+    	newAd.setDesc(request.getParameter("description"));
+    	newAd.setRentCost(Integer.parseInt(request.getParameter("cost")));
+    	newAd.setImageLink(request.getParameter("picture_link"));
+    	newAd.setAdId(Integer.parseInt(request.getParameter("adId")));
+    	
+    	try
+	 	{
+    		UpdateAdFunction ur = new UpdateAdFunction();
+	 		ur.insertAdToDb(newAd);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/updateAdConfirmation.jsp");
+	 		rd.include(request,response);
+	 	}
+
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
+    	
+    }
+    
+    public void rent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	int adId = Integer.parseInt(request.getParameter("adId"));
+    	
+    	try
+	 	{
+    		rentProduct ur = new rentProduct();
+	 		ur.rent(adId);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
+	 		rd.include(request,response);
+	 	}
+
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
+    	
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

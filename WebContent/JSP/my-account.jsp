@@ -4,6 +4,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="DAO.DBConnection"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -82,26 +83,12 @@ document.getElementById("zip").disabled = '';
 				
 				
 				<%String id = (String)hs.getAttribute("uname");
-				String driverName = "com.mysql.jdbc.Driver";
-				String connectionUrl = "jdbc:mysql://localhost:3306/";
-				String dbName = "gear4camp";
-				String userId = "root";
-				String password = "Varun123.";
-
-				try {
-				Class.forName(driverName);
-				} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				}
-
-				Connection connection = null;
+				Connection connection = DBConnection.getConnection();
 				Statement statement = null;
 				ResultSet resultSet = null;
 				try{ 
-				connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 				statement=connection.createStatement();
 				String sql ="SELECT * FROM users where email='"+id+"'";
-
 				resultSet = statement.executeQuery(sql);
 				while(resultSet.next()){
 				%>
@@ -111,7 +98,7 @@ document.getElementById("zip").disabled = '';
 						
 						<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
 						
-						<input type="hidden" name="param" value="SaveAcc">
+						<input type="hidden" name="param" value=userUpdate>
 							<fieldset>
 								
 								<!-- Text input for required first name-->

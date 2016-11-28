@@ -1,15 +1,15 @@
 package functions;
 
 
-import java.sql.*;  
+import java.sql.*;
+
+import DAO.DBConnection;  
 
 public class LoginModel {  
 	public static boolean validate(String name,String pass){  
 		boolean status=false;  
 		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gear4camp","root","Varun123.");  
-
+			Connection con = DBConnection.getConnection();
 			PreparedStatement ps=con.prepareStatement(  
 					"select * from users where password=? and email=?");
 			ps.setString(2,name);  
@@ -17,6 +17,7 @@ public class LoginModel {
 
 			ResultSet rs=ps.executeQuery();  
 			status=rs.next();  
+			System.out.println("In model");
 
 		}catch(Exception e){System.out.println(e);}  
 		return status;  

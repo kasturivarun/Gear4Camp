@@ -5,30 +5,41 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="DAO.DBConnection"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Gear4Camp view ad in more detail.">
+    <meta name="description" content="Gear4Camp home page for renting outdoor equipment.">
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="index.css" rel="stylesheet" type="text/css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<title>Gear4Camp - View Ad</title>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="index.js" type="text/javascript"></script>
+	<title>Gear4Camp - Rent Outdoor Equipment</title>
+	<script>
+	$(function(){
+		 $('.row').masonry({
+		   // options
+		   itemSelector : '.thumbnail, #box, h1',
+		   columnWidth : 240,
+		    isAnimated: true
+		 });
+		});
+	</script>
 </head>
 <body>
 
 <%
-String id = request.getParameter("adId");
-Connection connection = DBConnection.getConnection();
+String id = request.getParameter("userId");
+Connection con = DBConnection.getConnection();
 Statement statement = null;
 ResultSet resultSet = null;
 HttpSession hs=request.getSession(true);
 %>
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -64,8 +75,11 @@ HttpSession hs=request.getSession(true);
                 {
                 %>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="logout.jsp"><span class="glyphicon glyphicon-log-in"></span> logout
+					<li><a href="JSP/my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="JSP/logout.jsp"><span class="glyphicon glyphicon-log-in"></span> logout
+					<%-- <%hs.removeAttribute("uname");
+						
+					%> --%>
 					
 					</a></li>
 				</ul>
@@ -73,7 +87,7 @@ HttpSession hs=request.getSession(true);
                 else{
                 %>
                 <ul class="nav navbar-nav navbar-right">
-					<li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
+					<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
 				</ul>
 				<%
 				}
@@ -83,65 +97,13 @@ HttpSession hs=request.getSession(true);
         </div>
         <!-- /.container -->
     </nav>
-    
-    <%
-		try{ 
-		statement=connection.createStatement();
-		String sql ="SELECT * FROM ads where ad_id='"+id+"'";
-
-		resultSet = statement.executeQuery(sql);
-		while(resultSet.next()){
-	%>
-
-    <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="margin-top:10%;margin-left:15%;">
 
         <div class="row">
-
-            <div class="col-md-2"></div>
-
-            <div class="col-md-8">
-				<h1 id="ad_title"><%=resultSet.getString("title") %></h1>
-				
-                <div class="row">
-
-                    <div>
-						<img src=<%=resultSet.getString("image_link") %> alt="Picture of equipment" style="width:50%;height:50%;">
-						<div>
-							<h3 class="pull-right" style="margin-right:30%;">$<%=resultSet.getString("rent_cost") %>*</h3>
-							<h3><%=resultSet.getString("title") %></h3>
-						</div>
-						<div>
-							<p>Ad ID#<%=resultSet.getInt("ad_id") %></p>
-							<p>Category: Category goes here</p>
-							<p>Description:<%=resultSet.getString("description") %></p>
-							<p>Condition here</p>
-							<p>Contact:<%=resultSet.getString("user_email") %></p>
-						</div>
-						<form action="../servlet1" method="post" id="rent_request_form">
-							<div class="form-group">
-							<input type="hidden" name="adId" value="<%=resultSet.getInt("ad_id") %>">
-							<input type="hidden" name="param" value="rentAd">
-									<button type="submit" class="btn btn-warning">Request to Rent <span class="glyphicon glyphicon-send"></span></button>
-							</div>
-						</form>
-                    </div>
-                </div>
-            </div>
-			
-			<div class="col-md-2"></div>
-			
+        <h3>Your Ad has been created</h3>
+        <a href="http://localhost:8080/Gear4Camp/">&lt back to Main page</a>
         </div>
-    </div>
-    <!-- /.container -->
-    
-    <% 
-	}
-
-	} catch (Exception e) {
-	e.printStackTrace();
-	}
-	%>
+   </div>
 
     <div class="container">
         <hr>
