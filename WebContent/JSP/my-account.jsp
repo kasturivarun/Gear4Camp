@@ -328,7 +328,7 @@ document.getElementById("zip").disabled = '';
                             <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
-                                <h4><a href="#"><%=resultSet.getString("title") %></a>
+                                <h4><a href="ad-edit.jsp?adId=<%=resultSet.getInt("ad_id") %>"><%=resultSet.getString("title") %></a>
                                 </h4>
                                 <p><%=resultSet.getString("description") %></p>
                             </div>

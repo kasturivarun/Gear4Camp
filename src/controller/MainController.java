@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Ad;
 import model.User;
+import DAO.DBHelper;
 import functions.CreateAdFunction;
 import functions.LoginModel;
 import functions.UpdateAdFunction;
@@ -79,10 +80,9 @@ public class MainController extends HttpServlet {
 	    PrintWriter out = response.getWriter();  
 	          
 	    String n=request.getParameter("username");  
-	    String p=request.getParameter("userpass");  
-	    LoginModel lm = new LoginModel();
-	          
-	    if(LoginModel.validate(n, p)){
+	    String p=request.getParameter("userpass");
+	    DBHelper db = new DBHelper();     
+	    if(db.validate(n, p)){
 	    	request.setAttribute("name",n);
 	    	HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", n);
@@ -110,8 +110,9 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
+    		DBHelper db = new DBHelper();
 	 		UserRegistrationFunction ur = new UserRegistrationFunction();
-	 		ur.insertToDb(newUser);
+	 		db.insertUserToDb(newUser);
 	 		HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", newUser.getEmail());
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/registrationConfirmation.jsp");
@@ -140,8 +141,9 @@ public class MainController extends HttpServlet {
     	System.out.println(newAd.getEmail());
     	try
 	 	{
+    		DBHelper db = new DBHelper();
     		CreateAdFunction ur = new CreateAdFunction();
-	 		ur.insertAdToDb(newAd);
+    		db.insertAdToDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/createAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -168,8 +170,9 @@ public class MainController extends HttpServlet {
 		
     	try
 	 	{
+    		DBHelper db = new DBHelper();
     		UpdateUserFunction uuf = new UpdateUserFunction();
-	 		uuf.updateUserInDb(user,email);
+    		db.updateUserInDb(user,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/my-account.jsp");
 	 		//rd.include(request,response);
 	 		rd.forward(request, response);
@@ -193,8 +196,9 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
+    		DBHelper db = new DBHelper();
     		UpdateAdFunction ur = new UpdateAdFunction();
-	 		ur.insertAdToDb(newAd);
+    		db.updateAdToDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/updateAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -211,8 +215,9 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
+    		DBHelper db = new DBHelper();
     		rentProduct ur = new rentProduct();
-	 		ur.rent(adId);
+    		db.rent(adId);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}

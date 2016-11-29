@@ -38,6 +38,8 @@
 Connection con = DBConnection.getConnection();
 
 String id = request.getParameter("userId");
+String search = request.getParameter("searchWord");
+String sql = "";
 Statement statement = null;
 ResultSet resultSet = null;
 HttpSession hs=request.getSession(true);
@@ -182,13 +184,13 @@ HttpSession hs=request.getSession(true);
 						try{ 
 						statement=con.createStatement();
 					
-						/* if(search!=null){
+						if(search!=null){
 							sql ="SELECT * FROM ads where title like '%"+search+"%' and is_available=1 ORDER BY ad_id DESC" ;
 						}
 						else{
 							sql ="SELECT * FROM ads where is_available=1 ORDER BY ad_id DESC";
-						} */
-						String sql ="SELECT * FROM ads where is_available=1 ORDER BY ad_id DESC";
+						}
+						//String sql ="SELECT * FROM ads where is_available=1 ORDER BY ad_id DESC";
 						resultSet = statement.executeQuery(sql);
 						while(resultSet.next()){
 					%>
