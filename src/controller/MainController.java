@@ -1,7 +1,6 @@
 package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,19 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import model.Ad;
 import model.User;
-import functions.CreateAdFunction;
-import functions.LoginModel;
-import functions.UpdateAdFunction;
-import functions.UpdateUserFunction;
-import functions.UserRegistrationFunction;
-import functions.rentProduct;
-
+import DAO.DBHelper;
 
 /**
- * Servlet implementation class FristServlet
+ * MainController Class
  */
 @WebServlet("/MainController")
 public class MainController extends HttpServlet {
@@ -79,10 +71,9 @@ public class MainController extends HttpServlet {
 	    PrintWriter out = response.getWriter();  
 	          
 	    String n=request.getParameter("username");  
-	    String p=request.getParameter("userpass");  
-	    LoginModel lm = new LoginModel();
-	          
-	    if(LoginModel.validateLogin(n, p)){
+	    String p=request.getParameter("userpass");
+	    DBHelper db = new DBHelper();     
+	    if(db.validateLogin(n, p)){
 	    	request.setAttribute("name",n);
 	    	HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", n);
@@ -110,8 +101,8 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
-	 		UserRegistrationFunction ur = new UserRegistrationFunction();
-	 		ur.insertUserToDb(newUser);
+    		DBHelper db = new DBHelper();
+	 		db.insertUserToDb(newUser);
 	 		HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", newUser.getEmail());
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/registrationConfirmation.jsp");
@@ -134,14 +125,13 @@ public class MainController extends HttpServlet {
     	newAd.setCategory(request.getParameter("category"));
     	newAd.setName(request.getParameter("name"));
     	newAd.setCondition(request.getParameter("condition"));
-    	newAd.setPhn_no(request.getParameter("phone_number"));
     	HttpSession hs=request.getSession(true);
     	newAd.setEmail((String) hs.getAttribute("uname"));
     	System.out.println(newAd.getEmail());
     	try
 	 	{
-    		CreateAdFunction ur = new CreateAdFunction();
-	 		ur.insertAdToDb(newAd);
+    		DBHelper db = new DBHelper();
+     		db.insertAdToDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/createAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -168,8 +158,8 @@ public class MainController extends HttpServlet {
 		
     	try
 	 	{
-    		UpdateUserFunction uuf = new UpdateUserFunction();
-	 		uuf.updateUserInDb(user,email);
+    		DBHelper db = new DBHelper();
+    		db.updateUserInDb(user,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/my-account.jsp");
 	 		//rd.include(request,response);
 	 		rd.forward(request, response);
@@ -182,7 +172,7 @@ public class MainController extends HttpServlet {
     }
     
     public void adUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-    	User newUser = new User();
+    	
     	System.out.println("In adupdate function");
     	Ad newAd = new Ad();
     	newAd.setTitle(request.getParameter("ad_title"));
@@ -193,8 +183,8 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
-    		UpdateAdFunction ur = new UpdateAdFunction();
-	 		ur.updateAdInDb(newAd);
+    		DBHelper db = new DBHelper();
+    		db.updateAdToDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/updateAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -208,11 +198,12 @@ public class MainController extends HttpServlet {
     
     public void rent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	int adId = Integer.parseInt(request.getParameter("adId"));
-    	
+    	HttpSession hs=request.getSession(true);
+		String email = (String) hs.getAttribute("uname");
     	try
 	 	{
-    		rentProduct ur = new rentProduct();
-	 		ur.rent(adId);
+    		DBHelper db = new DBHelper();
+    		db.rent(adId,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
