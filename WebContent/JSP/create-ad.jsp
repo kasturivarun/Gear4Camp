@@ -146,15 +146,7 @@
 								</div>
 								
 								<!-- Text input for optional phone number-->
-								<div class="form-group">
-									<label class="col-md-4 control-label">Phone #</label>
-									<div class="col-md-4 inputGroupContainer">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-											<input name="phone_number" placeholder="(123) 456-7890" class="form-control" type="text">
-										</div>
-									</div>
-								</div>
+								
 								
 								<div class="form-group">
 									<label class="col-md-4 control-label"></label>

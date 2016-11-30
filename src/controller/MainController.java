@@ -135,7 +135,6 @@ public class MainController extends HttpServlet {
     	newAd.setCategory(request.getParameter("category"));
     	newAd.setName(request.getParameter("name"));
     	newAd.setCondition(request.getParameter("condition"));
-    	newAd.setPhn_no(request.getParameter("phone_number"));
     	HttpSession hs=request.getSession(true);
     	newAd.setEmail((String) hs.getAttribute("uname"));
     	System.out.println(newAd.getEmail());
@@ -212,12 +211,13 @@ public class MainController extends HttpServlet {
     
     public void rent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	int adId = Integer.parseInt(request.getParameter("adId"));
-    	
+    	HttpSession hs=request.getSession(true);
+		String email = (String) hs.getAttribute("uname");
     	try
 	 	{
     		DBHelper db = new DBHelper();
     		rentProduct ur = new rentProduct();
-    		db.rent(adId);
+    		db.rent(adId,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}

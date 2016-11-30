@@ -13,10 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Gear4Camp user account details.">
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="index.css" rel="stylesheet" type="text/css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title>Gear4Camp - My Account</title>
 </head>
  <script type="text/javascript">
@@ -76,286 +76,402 @@ document.getElementById("zip").disabled = '';
     <div class="container">
 
         <div class="row well">
-
-            <div class="col-md-5">
-            <%HttpSession hs=request.getSession(true);%>
-				<h1 class="text-center" id="ad_title">Account Details for <%=hs.getAttribute("uname") %></h1>
-				
-				
-				<%String id = (String)hs.getAttribute("uname");
-				Connection connection = DBConnection.getConnection();
-				Statement statement = null;
-				ResultSet resultSet = null;
-				try{ 
-				statement=connection.createStatement();
-				String sql ="SELECT * FROM users where email='"+id+"'";
-				resultSet = statement.executeQuery(sql);
-				while(resultSet.next()){
-				%>
-                <div class="row">
-
-                    <div class="container">
+        <ul class="nav nav-tabs">
+		    <li class="active"><a data-toggle="tab" href="#home">My Profile</a></li>
+		    <li><a data-toggle="tab" href="#menu1">My Ads</a></li>
+		    <li><a data-toggle="tab" href="#menu2">My Rentals</a></li>
+		    <li><a data-toggle="tab" href="#menu3">Rental Requests</a></li>
+		  </ul>
+		  
+		  <div class="tab-content">
+		    <div id="home" class="tab-pane fade in active">
+		      <h3>My Profile</h3>
+		      <div class="col-md-5">
+		            <%HttpSession hs=request.getSession(true);%>
+						<h1 class="text-center" id="ad_title">Account Details for <%=hs.getAttribute("uname") %></h1>
 						
-						<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
 						
-						<input type="hidden" name="param" value=userUpdate>
-							<fieldset>
+						<%String id = (String)hs.getAttribute("uname");
+						Connection connection = DBConnection.getConnection();
+						Statement statement = null;
+						ResultSet resultSet = null;
+						try{ 
+						statement=connection.createStatement();
+						String sql ="SELECT * FROM users where email='"+id+"'";
+						resultSet = statement.executeQuery(sql);
+						while(resultSet.next()){
+						%>
+		                <div class="row">
+		
+		                    <div class="container">
 								
-								<!-- Text input for required first name-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">First Name*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input id="first_name" name="first_name" disabled="disabled" value=<%=resultSet.getString("fname")%> class="form-control" type="text">
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- Text input for required last name-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">Last Name*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-												<input id="last_name" name="last_name" disabled="disabled" value=<%=resultSet.getString("lname")%> class="form-control" type="text">
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- Text input for required email-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">E-mail*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-												<input id="email" name="email" readonly value=<%=resultSet.getString("email")%> class="form-control" type="text">
-											</div>
-										</div>
-									</div>
-								</div>
+								<form class="form-horizontal" action="../servlet1" method="post" id="contact_form">
 								
-								<!-- Input for password-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">Password*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" disabled="disabled" class="form-control" name="password" value=<%=resultSet.getString("password")%> id="password">
+								<input type="hidden" name="param" value=userUpdate>
+									<fieldset>
+										
+										<!-- Text input for required first name-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">First Name*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+														<input id="first_name" name="first_name" disabled="disabled" value=<%=resultSet.getString("fname")%> class="form-control" type="text">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								
-								<!-- Input for password-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">Confirm Password*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-												<input type="password" disabled="disabled" class="form-control" name="confirm_password" value=<%=resultSet.getString("password")%> id="confirm_password" placeholder="Confirm new password">
+		
+										<!-- Text input for required last name-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">Last Name*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+														<input id="last_name" name="last_name" disabled="disabled" value=<%=resultSet.getString("lname")%> class="form-control" type="text">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-
-								<!-- Text input for optional phone number-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">Phone #</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-												<input id="phone_number" name="phone_number" disabled="disabled" value=<%=resultSet.getString("phone_number")%> class="form-control" type="text">
+		
+										<!-- Text input for required email-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">E-mail*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+														<input id="email" name="email" readonly value=<%=resultSet.getString("email")%> class="form-control" type="text">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-
-								<!-- Select Basic for required State-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">State*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-												<select id="state" name="state" disabled="disabled" class="form-control selectpicker">
-													<option selected="selected"><%=resultSet.getString("state")%></option>
-													<option>Alabama</option>
-													<option>Alaska</option>
-													<option >Arizona</option>
-													<option >Arkansas</option>
-													<option >California</option>
-													<option >Colorado</option>
-													<option >Connecticut</option>
-													<option >Delaware</option>
-													<option >District of Columbia</option>
-													<option> Florida</option>
-													<option >Georgia</option>
-													<option >Hawaii</option>
-													<option >Idaho</option>
-													<option >Illinois</option>
-													<option >Indiana</option>
-													<option >Iowa</option>
-													<option> Kansas</option>
-													<option >Kentucky</option>
-													<option >Louisiana</option>
-													<option>Maine</option>
-													<option >Maryland</option>
-													<option> Mass</option>
-													<option >Michigan</option>
-													<option >Minnesota</option>
-													<option>Mississippi</option>
-													<option>Missouri</option>
-													<option>Montana</option>
-													<option>Nebraska</option>
-													<option>Nevada</option>
-													<option>New Hampshire</option>
-													<option>New Jersey</option>
-													<option>New Mexico</option>
-													<option>New York</option>
-													<option>North Carolina</option>
-													<option>North Dakota</option>
-													<option>Ohio</option>
-													<option>Oklahoma</option>
-													<option>Oregon</option>
-													<option>Pennsylvania</option>
-													<option>Rhode Island</option>
-													<option>South Carolina</option>
-													<option>South Dakota</option>
-													<option>Tennessee</option>
-													<option>Texas</option>
-													<option> Uttah</option>
-													<option>Vermont</option>
-													<option>Virginia</option>
-													<option >Washington</option>
-													<option >West Virginia</option>
-													<option>Wisconsin</option>
-													<option >Wyoming</option>
-												</select>
+										
+										<!-- Input for password-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">Password*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+														<input type="password" disabled="disabled" class="form-control" name="password" value=<%=resultSet.getString("password")%> id="password">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-	  
-								<!-- Text input for required City-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">City*</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input id="city" name="city" disabled="disabled" value=<%=resultSet.getString("city")%> class="form-control" type="text">
+										
+										<!-- Input for password-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">Confirm Password*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+														<input type="password" disabled="disabled" class="form-control" name="confirm_password" value=<%=resultSet.getString("password")%> id="confirm_password" placeholder="Confirm new password">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-
-								<!-- Text input for optional Zip Code-->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="control-label">Zip Code</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-												<input id="zip" name="zip" disabled="disabled" value=<%=resultSet.getString("zipcode")%> class="form-control" type="text">
+		
+										<!-- Text input for optional phone number-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">Phone #</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+														<input id="phone_number" name="phone_number" disabled="disabled" value=<%=resultSet.getString("phone_number")%> class="form-control" type="text">
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-5">
-										<label class="control-label"></label>
-										<p>* = Required</p>
-									</div>
-								</div>
-								
-								<!-- Button -->
-								<div class="row">
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="col-md-5 control-label"></label>
-											<div class="btn-group">
-												<button id="btnEdit"  onclick="enableSave(); return false;" class="btn btn-warning ">Edit <span class="glyphicon glyphicon-send"></span></button>											
-											</div>
-											<div class="btn-group">
-												<button  id="btnSave" type="submit" style="display: none;" class="btn btn-warning ">Save <span class="glyphicon glyphicon-send"></span></button>												
-											</div>
-											<div class="btn-group">
-											<button  id="btnCancel"  style="display: none;" onclick="window.location.reload();" class="btn btn-warning ">Cancel <span class="glyphicon glyphicon-send"></span></button>
+		
+										<!-- Select Basic for required State-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">State*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+														<select id="state" name="state" disabled="disabled" class="form-control selectpicker">
+															<option selected="selected"><%=resultSet.getString("state")%></option>
+															<option>Alabama</option>
+															<option>Alaska</option>
+															<option >Arizona</option>
+															<option >Arkansas</option>
+															<option >California</option>
+															<option >Colorado</option>
+															<option >Connecticut</option>
+															<option >Delaware</option>
+															<option >District of Columbia</option>
+															<option> Florida</option>
+															<option >Georgia</option>
+															<option >Hawaii</option>
+															<option >Idaho</option>
+															<option >Illinois</option>
+															<option >Indiana</option>
+															<option >Iowa</option>
+															<option> Kansas</option>
+															<option >Kentucky</option>
+															<option >Louisiana</option>
+															<option>Maine</option>
+															<option >Maryland</option>
+															<option> Mass</option>
+															<option >Michigan</option>
+															<option >Minnesota</option>
+															<option>Mississippi</option>
+															<option>Missouri</option>
+															<option>Montana</option>
+															<option>Nebraska</option>
+															<option>Nevada</option>
+															<option>New Hampshire</option>
+															<option>New Jersey</option>
+															<option>New Mexico</option>
+															<option>New York</option>
+															<option>North Carolina</option>
+															<option>North Dakota</option>
+															<option>Ohio</option>
+															<option>Oklahoma</option>
+															<option>Oregon</option>
+															<option>Pennsylvania</option>
+															<option>Rhode Island</option>
+															<option>South Carolina</option>
+															<option>South Dakota</option>
+															<option>Tennessee</option>
+															<option>Texas</option>
+															<option> Uttah</option>
+															<option>Vermont</option>
+															<option>Virginia</option>
+															<option >Washington</option>
+															<option >West Virginia</option>
+															<option>Wisconsin</option>
+															<option >Wyoming</option>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
-									
-									</div>
-								</div>
-
-							</fieldset>
-						</form>
-					</div>
-					
-                </div>
-                <%
-				}
-
-				} catch (Exception e) {
-				e.printStackTrace();
-				}
-                %>
-            </div>
-			
-			<div class="col-md-2"></div>
-			
-			
-			<div class="col-md-5">
-				<h1 class="text-center" id="ad_title">Ad Postings</h1>
+			  
+										<!-- Text input for required City-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">City*</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+														<input id="city" name="city" disabled="disabled" value=<%=resultSet.getString("city")%> class="form-control" type="text">
+													</div>
+												</div>
+											</div>
+										</div>
+		
+										<!-- Text input for optional Zip Code-->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="control-label">Zip Code</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+														<input id="zip" name="zip" disabled="disabled" value=<%=resultSet.getString("zipcode")%> class="form-control" type="text">
+													</div>
+												</div>
+											</div>
+										</div>
+		
+										<div class="row">
+											<div class="col-md-5">
+												<label class="control-label"></label>
+												<p>* = Required</p>
+											</div>
+										</div>
+										
+										<!-- Button -->
+										<div class="row">
+											<div class="col-md-5">
+												<div class="form-group">
+													<label class="col-md-5 control-label"></label>
+													<div class="btn-group">
+														<button id="btnEdit"  onclick="enableSave(); return false;" class="btn btn-warning ">Edit <span class="glyphicon glyphicon-send"></span></button>											
+													</div>
+													<div class="btn-group">
+														<button  id="btnSave" type="submit" style="display: none;" class="btn btn-warning ">Save <span class="glyphicon glyphicon-send"></span></button>												
+													</div>
+													<div class="btn-group">
+													<button  id="btnCancel"  style="display: none;" onclick="window.location.reload();" class="btn btn-warning ">Cancel <span class="glyphicon glyphicon-send"></span></button>
+													</div>
+												</div>
+											
+											</div>
+										</div>
+		
+									</fieldset>
+								</form>
+							</div>
+							
+		                </div>
+		                <%
+						}
+		
+						} catch (Exception e) {
+						e.printStackTrace();
+						}
+		                %>
+		            </div>
+		    </div>
+		    <div id="menu1" class="tab-pane fade">
+		      <h3>My Ads</h3>
+		      <div class="col-md-5">
+				
 				
 				<%
 				try{ 
 				String sql2 ="SELECT * FROM ads where user_email='"+id+"'";
-				resultSet = statement.executeQuery(sql2);
-				while(resultSet.next()){
+				ResultSet resultSet10 = statement.executeQuery(sql2);
+				while(resultSet10.next()){
 				%>
 					<div class="col-sm-12 col-lg-12 col-md-12">
-                        <div class="thumbnail">
-                            <img src=<%=resultSet.getString("image_link") %> alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
-                                <h4><a href="ad-edit.jsp?adId=<%=resultSet.getInt("ad_id") %>"><%=resultSet.getString("title") %></a>
-                                </h4>
-                                <p><%=resultSet.getString("description") %></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#"><%=resultSet.getString("user_email") %></a></p>
-                                <p>
-                                Posted By:
-                                    <!-- <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span> -->
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                  <%
+		                      <div class="thumbnail">
+		                          <img src=<%=resultSet10.getString("image_link") %> alt="">
+		                          <div class="caption">
+		                              <h4 class="pull-right">$<%=resultSet10.getString("rent_cost") %>/day</h4>
+		                              <h4><a href="ad-edit.jsp?adId=<%=resultSet10.getInt("ad_id") %>"><%=resultSet10.getString("title") %></a>
+		                              </h4>
+		                              <p><%=resultSet10.getString("description") %></p>
+		                          </div>
+		                          <div class="ratings">
+		                              <p class="pull-right"><a href="#"><%=resultSet10.getString("user_email") %></a></p>
+		                              <p>
+		                              Posted By:
+		                                  <!-- <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span> -->
+		                              </p>
+		                          </div>
+		                      </div>
+		                  </div>
+		                  
+		                <%
 				}
-
+		
 				} catch (Exception e) {
 				e.printStackTrace();
 				}
-                %>  
+		              %>  
 					
 				
 			</div>
+		      </div>
+		    <div id="menu2" class="tab-pane fade">
+		      <h3>My Rentals</h3>
+		     <div class="col-md-5">
+				
+				
+				<%
+				try{ 
+				String sql3 ="SELECT ad_id FROM rentals where renter_email='"+id+"'";
+				ResultSet resultSet3 = statement.executeQuery(sql3);
+				while(resultSet3.next()){
+					ResultSet resultSet2 = statement.executeQuery("SELECT * FROM ads where ad_id='"+resultSet3.getInt("ad_id")+"'");
+					while(resultSet2.next()){
+				%>
+					
+					<div class="col-sm-12 col-lg-12 col-md-12">
+		                      <div class="thumbnail">
+		                          <img src=<%=resultSet2.getString("image_link") %> alt="">
+		                          <div class="caption">
+		                              <h4 class="pull-right">$<%=resultSet2.getString("rent_cost") %>/day</h4>
+		                              <h4><a href="ad-edit.jsp?adId=<%=resultSet2.getInt("ad_id") %>"><%=resultSet2.getString("title") %></a>
+		                              </h4>
+		                              <p><%=resultSet2.getString("description") %></p>
+		                          </div>
+		                          <div class="ratings">
+		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_email") %></a></p>
+		                              <p>
+		                              Posted By:
+		                                  <!-- <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span> -->
+		                              </p>
+		                          </div>
+		                      </div>
+		                  </div>
+		                  
+		                <%
+				}
+				}
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+		              %>  
+					
+				
+			</div>
+		     </div>
+		   
+		   
+		   
+		   <div id="menu3" class="tab-pane fade">
+		      <h3>Rental Requests</h3>
+		     <div class="col-md-5">
+				
+				
+				<%
+				try{ 
+				String sql3 ="SELECT ad_id FROM rentals where ad_user_email='"+id+"'";
+				ResultSet resultSet4 = statement.executeQuery(sql3);
+				while(resultSet4.next()){
+					ResultSet resultSet2 = statement.executeQuery("SELECT * FROM ads where ad_id='"+resultSet4.getInt("ad_id")+"'");
+					while(resultSet2.next()){
+				%>
+					
+					<div class="col-sm-12 col-lg-12 col-md-12">
+		                      <div class="thumbnail">
+		                          <img src=<%=resultSet2.getString("image_link") %> alt="">
+		                          <div class="caption">
+		                              <h4 class="pull-right">$<%=resultSet2.getString("rent_cost") %>/day</h4>
+		                              <h4><a href="ad-edit.jsp?adId=<%=resultSet2.getInt("ad_id") %>"><%=resultSet2.getString("title") %></a>
+		                              </h4>
+		                              <p><%=resultSet2.getString("description") %></p>
+		                          </div>
+		                          <div class="ratings">
+		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_email") %></a></p>
+		                              <p>
+		                              Posted By:
+		                                  <!-- <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span>
+		                                  <span class="glyphicon glyphicon-star"></span> -->
+		                              </p>
+		                          </div>
+		                      </div>
+		                  </div>
+		                  
+		                <%
+				}
+				}
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+		              %>  
+					
+				
+			</div>
+		     </div>
+		  </div>
+
+            
+			
+			<div class="col-md-2"></div>
+			
+			
+			
 			
         </div>
     </div>
