@@ -68,9 +68,9 @@ public class DBHelper {
 			while(rs.next()){
 				renterId = rs.getInt("user_id");
 			}
-			ps=con.prepareStatement( "select user_id,user_email from ads where ad_id=?");
-			ps.setInt(1,adId);
-			ResultSet rs2=ps.executeQuery();
+			PreparedStatement ps2=con.prepareStatement( "select user_id,user_email from ads where ad_id=?");
+			ps2.setInt(1,adId);
+			ResultSet rs2=ps2.executeQuery();
 			int userId = 0;
 			String userEmail = "";
 			while(rs2.next()){
@@ -79,19 +79,19 @@ public class DBHelper {
 			}
 			
 			String sql="update ads set is_available=? where ad_id=?";
-			ps=con.prepareStatement(sql);
-			ps.setInt(1, 0);
-			ps.setInt(2, adId);
-			ps.executeUpdate();
+			PreparedStatement ps3=con.prepareStatement(sql);
+			ps3.setInt(1, 0);
+			ps3.setInt(2, adId);
+			ps3.executeUpdate();
 			
 			sql="insert into rentals(ad_user_id,renter_id,ad_id,renter_email,ad_user_email) values(?,?,?,?,?)";
-			ps=con.prepareStatement(sql);
-			ps.setInt(1,userId);
-			ps.setInt(2, renterId);
-			ps.setInt(3, adId);
-			ps.setString(4,email);
-			ps.setString(5,userEmail);
-			ps.executeUpdate();
+			PreparedStatement ps4=con.prepareStatement(sql);
+			ps4.setInt(1,userId);
+			ps4.setInt(2, renterId);
+			ps4.setInt(3, adId);
+			ps4.setString(4,email);
+			ps4.setString(5,userEmail);
+			ps4.executeUpdate();
 			con.close();
 		}
 		catch(Exception e){System.out.println(e);}  

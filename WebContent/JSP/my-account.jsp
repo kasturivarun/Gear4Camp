@@ -98,6 +98,7 @@ document.getElementById("zip").disabled = '';
 						try{ 
 						statement=connection.createStatement();
 						String sql ="SELECT * FROM users where email='"+id+"'";
+						
 						resultSet = statement.executeQuery(sql);
 						while(resultSet.next()){
 						%>
@@ -328,7 +329,8 @@ document.getElementById("zip").disabled = '';
 				<%
 				try{ 
 				String sql2 ="SELECT * FROM ads where user_email='"+id+"'";
-				ResultSet resultSet10 = statement.executeQuery(sql2);
+				Statement statement2 = connection.createStatement();;
+				ResultSet resultSet10 = statement2.executeQuery(sql2);
 				while(resultSet10.next()){
 				%>
 					<div class="col-sm-12 col-lg-12 col-md-12">
@@ -373,9 +375,11 @@ document.getElementById("zip").disabled = '';
 				<%
 				try{ 
 				String sql3 ="SELECT ad_id FROM rentals where renter_email='"+id+"'";
-				ResultSet resultSet3 = statement.executeQuery(sql3);
+				Statement statement3 = connection.createStatement();;
+				ResultSet resultSet3 = statement3.executeQuery(sql3);
 				while(resultSet3.next()){
-					ResultSet resultSet2 = statement.executeQuery("SELECT * FROM ads where ad_id='"+resultSet3.getInt("ad_id")+"'");
+					Statement statement4 = connection.createStatement();;
+					ResultSet resultSet2 = statement4.executeQuery("SELECT * FROM ads where ad_id='"+resultSet3.getInt("ad_id")+"'");
 					while(resultSet2.next()){
 				%>
 					
@@ -424,9 +428,11 @@ document.getElementById("zip").disabled = '';
 				<%
 				try{ 
 				String sql3 ="SELECT ad_id FROM rentals where ad_user_email='"+id+"'";
-				ResultSet resultSet4 = statement.executeQuery(sql3);
+				Statement statement5 = connection.createStatement();;
+				ResultSet resultSet4 = statement5.executeQuery(sql3);
 				while(resultSet4.next()){
-					ResultSet resultSet2 = statement.executeQuery("SELECT * FROM ads where ad_id='"+resultSet4.getInt("ad_id")+"'");
+					Statement statement6 = connection.createStatement();;
+					ResultSet resultSet2 = statement6.executeQuery("SELECT * FROM ads where ad_id='"+resultSet4.getInt("ad_id")+"'");
 					while(resultSet2.next()){
 				%>
 					
