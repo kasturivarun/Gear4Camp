@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import model.Ad;
 import model.User;
-import DAO.DBHelper;
 import functions.CreateAdFunction;
 import functions.LoginModel;
 import functions.UpdateAdFunction;
@@ -80,9 +79,10 @@ public class MainController extends HttpServlet {
 	    PrintWriter out = response.getWriter();  
 	          
 	    String n=request.getParameter("username");  
-	    String p=request.getParameter("userpass");
-	    DBHelper db = new DBHelper();     
-	    if(db.validate(n, p)){
+	    String p=request.getParameter("userpass");  
+	    LoginModel lm = new LoginModel();
+	          
+	    if(LoginModel.validateLogin(n, p)){
 	    	request.setAttribute("name",n);
 	    	HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", n);
@@ -110,9 +110,8 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
-    		DBHelper db = new DBHelper();
 	 		UserRegistrationFunction ur = new UserRegistrationFunction();
-	 		db.insertUserToDb(newUser);
+	 		ur.insertUserToDb(newUser);
 	 		HttpSession hs=request.getSession(true);
 			hs.setAttribute("uname", newUser.getEmail());
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/registrationConfirmation.jsp");
@@ -135,14 +134,14 @@ public class MainController extends HttpServlet {
     	newAd.setCategory(request.getParameter("category"));
     	newAd.setName(request.getParameter("name"));
     	newAd.setCondition(request.getParameter("condition"));
+    	newAd.setPhn_no(request.getParameter("phone_number"));
     	HttpSession hs=request.getSession(true);
     	newAd.setEmail((String) hs.getAttribute("uname"));
     	System.out.println(newAd.getEmail());
     	try
 	 	{
-    		DBHelper db = new DBHelper();
     		CreateAdFunction ur = new CreateAdFunction();
-    		db.insertAdToDb(newAd);
+	 		ur.insertAdToDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/createAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -169,9 +168,8 @@ public class MainController extends HttpServlet {
 		
     	try
 	 	{
-    		DBHelper db = new DBHelper();
     		UpdateUserFunction uuf = new UpdateUserFunction();
-    		db.updateUserInDb(user,email);
+	 		uuf.updateUserInDb(user,email);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/my-account.jsp");
 	 		//rd.include(request,response);
 	 		rd.forward(request, response);
@@ -195,9 +193,8 @@ public class MainController extends HttpServlet {
     	
     	try
 	 	{
-    		DBHelper db = new DBHelper();
     		UpdateAdFunction ur = new UpdateAdFunction();
-    		db.updateAdToDb(newAd);
+	 		ur.updateAdInDb(newAd);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/updateAdConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
@@ -211,13 +208,11 @@ public class MainController extends HttpServlet {
     
     public void rent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	int adId = Integer.parseInt(request.getParameter("adId"));
-    	HttpSession hs=request.getSession(true);
-		String email = (String) hs.getAttribute("uname");
+    	
     	try
 	 	{
-    		DBHelper db = new DBHelper();
     		rentProduct ur = new rentProduct();
-    		db.rent(adId,email);
+	 		ur.rent(adId);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}

@@ -6,7 +6,7 @@ import java.sql.*;
 import DAO.DBConnection;  
 
 public class LoginModel {  
-	public static boolean validate(String name,String pass){  
+	public static boolean validateLogin(String name,String pass){  
 		boolean status=false;  
 		try{  
 			Connection con = DBConnection.getConnection();

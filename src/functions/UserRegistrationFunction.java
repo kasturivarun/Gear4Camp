@@ -10,7 +10,7 @@ import model.User;
 
 public class UserRegistrationFunction {
 
-	public static void insertToDb(User newUser){
+	public static void insertUserToDb(User newUser){
 		try{  
 			Connection con = DBConnection.getConnection();
 			String sql="insert into users(fname,lname,email,password,city,state,country,address,zipcode,phone_number) values(?,?,?,?,?,?,?,?,?,?)";
