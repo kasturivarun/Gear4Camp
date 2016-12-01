@@ -64,7 +64,7 @@ document.getElementById("zip").disabled = '';
                     </li>
                 </ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="JSP/logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+					<li><a href="logout.jsp"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 				</ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -328,7 +328,7 @@ document.getElementById("zip").disabled = '';
 				
 				<%
 				try{ 
-				String sql2 ="SELECT * FROM ads where user_email='"+id+"'";
+				String sql2 ="SELECT * FROM ads where user_email='"+id+"' ORDER BY ad_id DESC";
 				Statement statement2 = connection.createStatement();;
 				ResultSet resultSet10 = statement2.executeQuery(sql2);
 				while(resultSet10.next()){
@@ -374,11 +374,22 @@ document.getElementById("zip").disabled = '';
 				
 				<%
 				try{ 
-				String sql3 ="SELECT ad_id FROM rentals where renter_email='"+id+"'";
-				Statement statement3 = connection.createStatement();;
+				String sql3 ="SELECT ad_id,is_approved FROM rentals where renter_email='"+id+"' ORDER BY rent_id DESC";
+				Statement statement3 = connection.createStatement();
 				ResultSet resultSet3 = statement3.executeQuery(sql3);
 				while(resultSet3.next()){
-					Statement statement4 = connection.createStatement();;
+					Statement statement4 = connection.createStatement();
+					int rentalStatus = resultSet3.getInt("is_approved");
+					String status = "";
+					if(rentalStatus == 0){
+						status = "Pending with owner";
+					}
+					else if(rentalStatus == 1){
+						status = "Approved by owner";
+					}
+					else{
+						status = "Rejected by owner";
+					}
 					ResultSet resultSet2 = statement4.executeQuery("SELECT * FROM ads where ad_id='"+resultSet3.getInt("ad_id")+"'");
 					while(resultSet2.next()){
 				%>
@@ -388,19 +399,21 @@ document.getElementById("zip").disabled = '';
 		                          <img src=<%=resultSet2.getString("image_link") %> alt="">
 		                          <div class="caption">
 		                              <h4 class="pull-right">$<%=resultSet2.getString("rent_cost") %>/day</h4>
-		                              <h4><a href="ad-edit.jsp?adId=<%=resultSet2.getInt("ad_id") %>"><%=resultSet2.getString("title") %></a>
+		                              <h4><%=resultSet2.getString("title") %>
 		                              </h4>
-		                              <p><%=resultSet2.getString("description") %></p>
+		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_email")%></a></p>
+		                              <p>
+		                              Renter Email:
+		                              </p>
+		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_number")%></a></p>
+		                              <p>
+		                              Renter Phone Number:
+		                              </p>
 		                          </div>
 		                          <div class="ratings">
-		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_email") %></a></p>
+		                              <p class="pull-right"><a href="#"><%=status%></a></p>
 		                              <p>
-		                              Posted By:
-		                                  <!-- <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span> -->
+		                              Status:
 		                              </p>
 		                          </div>
 		                      </div>
@@ -427,11 +440,20 @@ document.getElementById("zip").disabled = '';
 				
 				<%
 				try{ 
-				String sql3 ="SELECT ad_id FROM rentals where ad_user_email='"+id+"'";
+				String sql3 ="SELECT ad_id,renter_email,rent_id,is_approved FROM rentals where ad_user_email='"+id+"' ORDER BY rent_id DESC";
 				Statement statement5 = connection.createStatement();;
 				ResultSet resultSet4 = statement5.executeQuery(sql3);
 				while(resultSet4.next()){
-					Statement statement6 = connection.createStatement();;
+					Statement statement6 = connection.createStatement();
+					String renterEmail = resultSet4.getString("renter_email");
+					int rentId = resultSet4.getInt("rent_id");
+					int isApproved = resultSet4.getInt("is_approved");
+					Statement statement10 = connection.createStatement();
+					String renterPhn = "";
+					ResultSet phnNo = statement10.executeQuery("SELECT phone_number FROM users where email ='"+renterEmail+"'");
+					while(phnNo.next()){
+						renterPhn = phnNo.getString("phone_number");
+					}
 					ResultSet resultSet2 = statement6.executeQuery("SELECT * FROM ads where ad_id='"+resultSet4.getInt("ad_id")+"'");
 					while(resultSet2.next()){
 				%>
@@ -443,19 +465,23 @@ document.getElementById("zip").disabled = '';
 		                              <h4 class="pull-right">$<%=resultSet2.getString("rent_cost") %>/day</h4>
 		                              <h4><a href="ad-edit.jsp?adId=<%=resultSet2.getInt("ad_id") %>"><%=resultSet2.getString("title") %></a>
 		                              </h4>
-		                              <p><%=resultSet2.getString("description") %></p>
-		                          </div>
-		                          <div class="ratings">
-		                              <p class="pull-right"><a href="#"><%=resultSet2.getString("user_email") %></a></p>
+		                              <p class="pull-right"><a href="#"><%=renterEmail%></a></p>
 		                              <p>
-		                              Posted By:
-		                                  <!-- <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span>
-		                                  <span class="glyphicon glyphicon-star"></span> -->
+		                              Renter Email:
 		                              </p>
+		                              <p class="pull-right"><a href="#"><%=renterPhn%></a></p>
+		                              <p>
+		                              Renter Phone Number:
+		                              </p>
+		                              <div class="ratings">
+		                              <%if(isApproved == 0){ %>
+		                              <button type="button" class="btn btn-default"><a href="process-rent.jsp?adId=<%=resultSet2.getInt("ad_id")%>&rentId=<%=rentId%>">Process Request</a></button>
+		                              <%}else{ %>
+		                              <p>Request already processed</p>
+		                              <%} %>
+		                              </div>
 		                          </div>
+		                          
 		                      </div>
 		                  </div>
 		                  

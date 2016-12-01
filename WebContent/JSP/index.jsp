@@ -15,10 +15,10 @@
     <meta name="description" content="Gear4Camp home page for renting outdoor equipment.">
 	<meta name="keywords" content="Gear4Camp, Outdoor, Gear, Equipment">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="index.css" rel="stylesheet" type="text/css">
+    <link href="JSP/index.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="index.js" type="text/javascript"></script>
+	<script src="JSP/index.js" type="text/javascript"></script>
 	<title>Gear4Camp - Rent Outdoor Equipment</title>
 	<script>
 	$(function(){
@@ -106,7 +106,7 @@ HttpSession hs=request.getSession(true);
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row" style="margin-top:5%;margin-left:30px;">
+        <div class="row">
 
             <div class="col-md-3">
                 <p class="lead">Categories</p>
@@ -177,7 +177,7 @@ HttpSession hs=request.getSession(true);
 	</form>
 					</div>
 				</div>
-				
+				<br>
                 <div class="row">
 				
 					<%
@@ -196,13 +196,13 @@ HttpSession hs=request.getSession(true);
 					%>
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail" style="height:300px;">
+                        <div class="thumbnail" style="width:250px;height:270px;">
                             <img src=<%=resultSet.getString("image_link") %> alt="">
                             <div class="caption">
                                 <h4 class="pull-right">$<%=resultSet.getString("rent_cost") %>/day</h4>
                                 <h4><a href="JSP/ad-view.jsp?adId=<%=resultSet.getInt("ad_id") %>"><%=resultSet.getString("title") %></a>
                                 </h4>
-                                <p><%=resultSet.getString("description") %></p>
+                                
                             </div>
                             <div class="ratings">
                                 <p class="pull-right"><a href="#"><%=resultSet.getString("user_email") %></a></p>
@@ -237,7 +237,7 @@ HttpSession hs=request.getSession(true);
         <hr>
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="row" style="margn-top:100%;">
                 <div class="col-lg-12">
 					<p>* = price negotiable</p>
                     <p>Copyright &copy; Gear4Camp 2016</p>

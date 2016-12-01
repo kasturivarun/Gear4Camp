@@ -162,4 +162,36 @@ public class DBHelper {
 			con.close();
 		}catch(Exception e){System.out.println(e);}  
 	}
+
+	public void rentStatusUpdateDb(int adId, String status,int rentId) {
+		try{  
+			Connection con = DBConnection.getConnection();
+			
+			if(status.equalsIgnoreCase("reject")){
+				String sql="update ads set is_available=? where ad_id=?";
+				PreparedStatement ps3=con.prepareStatement(sql);
+				ps3.setInt(1, 1);
+				ps3.setInt(2, adId);
+				ps3.executeUpdate();
+			}
+			
+			
+			PreparedStatement ps4=con.prepareStatement("update rentals set is_approved=? where ad_id=? and rent_id=?");
+			if(status.equalsIgnoreCase("approve")){
+				ps4.setInt(1, 1);
+			}
+			else if(status.equalsIgnoreCase("reject")){
+				ps4.setInt(1, 2);
+			}
+			else{
+				ps4.setInt(1, 0);
+			}
+			ps4.setInt(2, adId);
+			ps4.setInt(3, rentId);
+			ps4.executeUpdate();
+			con.close();
+		}
+		catch(Exception e){System.out.println(e);}
+		
+	}
 }

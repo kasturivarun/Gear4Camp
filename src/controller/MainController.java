@@ -68,6 +68,11 @@ public class MainController extends HttpServlet {
 			rent(request,response);
 		}
 		
+		else if(jspName.equalsIgnoreCase("rentStatus"))
+		{
+			rentStatusUpdate(request,response);
+		}
+		
 	}
     public MainController() {
         super();
@@ -218,6 +223,28 @@ public class MainController extends HttpServlet {
     		DBHelper db = new DBHelper();
     		rentProduct ur = new rentProduct();
     		db.rent(adId,email);
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
+	 		rd.include(request,response);
+	 	}
+
+	 	catch(Exception e1)
+	 	{
+	 		System.out.println("error occured");
+	 	}
+    	
+    }
+    
+    public void rentStatusUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	int adId = Integer.parseInt(request.getParameter("adId"));
+    	int rentId = Integer.parseInt(request.getParameter("rentId"));
+    	HttpSession hs=request.getSession(true);
+		String status = request.getParameter("requestStatus");
+		System.out.println(status);
+    	try
+	 	{
+    		DBHelper db = new DBHelper();
+    		rentProduct ur = new rentProduct();
+    		db.rentStatusUpdateDb(adId,status,rentId);
 	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
