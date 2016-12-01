@@ -10,17 +10,17 @@ import model.Ad;
 import model.User;
 
 public class UpdateAdFunction {
-	public static void insertAdToDb(Ad newUser){ 
+	public static void updateAdInDb(Ad ad){ 
 		try{  
 			Connection con = DBConnection.getConnection();
 			String sql="update ads set title=?,description=?,rent_cost=?,image_link=? where ad_id=?";
 			PreparedStatement ps=con.prepareStatement(sql);
-			ps.setString(1, newUser.getTitle());
-			ps.setString(2, newUser.getDesc());
-			ps.setInt(3, newUser.getRentCost());
-			ps.setString(4, newUser.getImageLink());
-			ps.setInt(5,newUser.getAdId());
-			System.out.println(newUser.getRentCost());
+			ps.setString(1, ad.getTitle());
+			ps.setString(2, ad.getDesc());
+			ps.setInt(3, ad.getRentCost());
+			ps.setString(4, ad.getImageLink());
+			ps.setInt(5,ad.getAdId());
+			System.out.println(ad.getRentCost());
 			ps.executeUpdate();
 		}
 		catch(Exception e){System.out.println(e);}  

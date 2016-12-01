@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import model.Ad;
 import model.User;
+/*DBHelper class*/
 
 public class DBHelper {
 	
-	public static void insertAdToDb(Ad newAd){ 
+	public void insertAdToDb(Ad newAd){ 
 		try{  
 			Connection con = DBConnection.getConnection();
 			PreparedStatement ps=con.prepareStatement( "select user_id from users where email=?");
@@ -41,7 +41,7 @@ public class DBHelper {
 		
 	}
 	
-	public static boolean validate(String name,String pass){  
+	public boolean validateLogin(String name,String pass){  
 		boolean status=false;  
 		try{  
 			Connection con = DBConnection.getConnection();
@@ -98,18 +98,18 @@ public class DBHelper {
 		
 	}
 	
-	public static void updateAdToDb(Ad newUser){ 
+	public void updateAdToDb(Ad updateAd){ 
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/gear4camp","root","Varun123.");
 			String sql="update ads set title=?,description=?,rent_cost=?,image_link=? where ad_id=?";
 			PreparedStatement ps=con.prepareStatement(sql);
-			ps.setString(1, newUser.getTitle());
-			ps.setString(2, newUser.getDesc());
-			ps.setInt(3, newUser.getRentCost());
-			ps.setString(4, newUser.getImageLink());
-			ps.setInt(5,newUser.getAdId());
-			System.out.println(newUser.getRentCost());
+			ps.setString(1, updateAd.getTitle());
+			ps.setString(2, updateAd.getDesc());
+			ps.setInt(3, updateAd.getRentCost());
+			ps.setString(4, updateAd.getImageLink());
+			ps.setInt(5,updateAd.getAdId());
+			System.out.println(updateAd.getRentCost());
 			ps.executeUpdate();
 			con.close();
 		}
@@ -143,7 +143,7 @@ public class DBHelper {
 			
 	}
 	
-	public static void insertUserToDb(User newUser){
+	public void insertUserToDb(User newUser){
 		try{  
 			Connection con = DBConnection.getConnection();
 			String sql="insert into users(fname,lname,email,password,city,state,country,address,zipcode,phone_number) values(?,?,?,?,?,?,?,?,?,?)";
