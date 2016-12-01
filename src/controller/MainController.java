@@ -230,7 +230,7 @@ public class MainController extends HttpServlet {
 	 	{
     		DBHelper db = new DBHelper();
     		db.rentStatusUpdateDb(adId,status,rentId);
-	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentConfirmation.jsp");
+	 		RequestDispatcher rd=request.getRequestDispatcher("JSP/rentProcessConfirmation.jsp");
 	 		rd.include(request,response);
 	 	}
 

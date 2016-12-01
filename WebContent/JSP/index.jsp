@@ -169,7 +169,7 @@ HttpSession hs=request.getSession(true);
 								</ul>
 							</div>
 							<input type="hidden" name="param" value="searchAd"/>       
-							<input type="text" class="form-control" id = "searchWord" name="searchWord" placeholder="Search for equipment...">
+							<input type="text" class="form-control" id = "searchWord" name="searchWord" value = "<%=request.getAttribute("searchWord")%>" placeholder="Search for equipment...">
 							<span class="input-group-btn">
 								<button type="submit" class="btn btn-default" ><span class="glyphicon glyphicon-search"></span></button>
 							</span>

@@ -15,6 +15,10 @@
 	<title>Gear4Camp - Create an Ad</title>
 </head>
 <body>
+<%
+
+HttpSession hs=request.getSession(true);
+%>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -35,16 +39,40 @@
                     <li>
                         <a href="#">About</a>
                     </li>
+                    <%if(hs.getAttribute("uname")!= null) 
+	                {
+	                %>
                     <li>
-                        <a href="#">Create Ad</a>
+                        <a href="JSP/create-ad.jsp">Create Ad</a>
 						<!--First have to check if user has an account and is logged in-->
 						<!--If not, send to login page first-->
                     </li>
+                    <%
+					}
+					%>
                 </ul>
+                <%if(hs.getAttribute("uname")!= null) 
+                {
+                %>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="my-account.html"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
-					<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="JSP/my-account.jsp"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+					<li><a href="JSP/logout.jsp"><span class="glyphicon glyphicon-log-in"></span> logout
+					<%-- <%hs.removeAttribute("uname");
+						
+					%> --%>
+					
+					</a></li>
 				</ul>
+				<%}
+                else{
+                %>
+                <ul class="nav navbar-nav navbar-right">
+			<li><a href="JSP/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+				<%
+				}
+				%>
+			
             </div>
             <!-- /.navbar-collapse -->
         </div>

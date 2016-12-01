@@ -100,7 +100,7 @@ HttpSession hs=request.getSession(true);
     <div class="container" style="margin-top:10%;margin-left:15%;">
 
         <div class="row">
-        <h3>The add has been updated</h3>
+        <h3>The ad has been updated</h3>
         <a href="JSP/my-account.jsp">&lt back to My Account page</a>
         </div>
    </div>
